@@ -68,8 +68,8 @@ int main(){
 
             //estatisticas de genero
             if(op == 2){
-                cout << "[1] Mulheres entrevistados" << endl;
-                cout << "[2] Homens entrevistadas" << endl;
+                cout << "[1] Mulheres entrevistadas" << endl;
+                cout << "[2] Homens entrevistados" << endl;
                 cout << "[3] Outros entrevistados" << endl;
                 cout << "Digite a opcao desejada: ";
                 cin >> op2;
