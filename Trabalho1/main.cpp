@@ -20,7 +20,7 @@ int novaOperacao(){
             operacao = 0;
         }
         if (opcao == 2){
-            operacao = 8;
+            operacao = 9;
         }
         if(opcao > 2 || opcao < 1){
             system(CLEARSCREEN);
@@ -121,12 +121,12 @@ int main(){
 
             //estatisticas de escolaridade
             if(op == 4){
-                cout << "[1] Entravistados com ensino fundamental incompleto" << endl;
-                cout << "[2] Entravistados com ensino médio incompleto" << endl;
-                cout << "[3] Entravistados com ensino superior incompleto" << endl;
-                cout << "[4] Entravistados com ensino fundamental completo" << endl;
-                cout << "[5] Entravistados com ensino médio completo" << endl;
-                cout << "[6] Entravistados com ensino superior completo" << endl;
+                cout << "[1] Entrevistados com ensino fundamental incompleto" << endl;
+                cout << "[2] Entrevistados com ensino médio incompleto" << endl;
+                cout << "[3] Entrevistados com ensino superior incompleto" << endl;
+                cout << "[4] Entrevistados com ensino fundamental completo" << endl;
+                cout << "[5] Entrevistados com ensino médio completo" << endl;
+                cout << "[6] Entrevistados com ensino superior completo" << endl;
                 cout << "Digite a opcao desejada: ";
                 cin >> op2;
                 cout << endl;
@@ -303,19 +303,19 @@ int main(){
                 //idade inferior a 30
                 if(op2 == 1){
                     resNum = ent.estatisticaIdade("Até 15 anos") + ent.estatisticaIdade("De 16 a 29 anos");
-                    cout << "Total de entrevistados com area prioritária em alimentação: " << resNum << " " << ent.Porcentagem(resNum) <<"%" << endl;
+                    cout << "Total de entrevistados com idade inferior a 30 anos: " << resNum << " " << ent.Porcentagem(resNum) <<"%" << endl;
                 }
 
                 //residentes nas regiões norte e sul
                 if(op2 == 2){
                     resNum = ent.estatisticaRegiao("Região Norte") + ent.estatisticaRegiao("Região Sul");
-                    cout << "Total de entrevistados com area prioritária em educação: " << resNum << " " << ent.Porcentagem(resNum) <<"%" << endl;
+                    cout << "Total de entrevistados residentes nas regiões Norte e Sul: " << resNum << " " << ent.Porcentagem(resNum) <<"%" << endl;
                 }
 
                 //ao menos ensino superior completo
                 if(op2 == 3){
                     resNum = ent.estatisticaEscolaridade("Ensino superior completo") + ent.estatisticaEscolaridade("Ensino médio completo") + ent.estatisticaEscolaridade("Ensino superior incompleto");
-                    cout << "Total de entrevistados com area prioritária em transporte: " << resNum << " " << ent.Porcentagem(resNum) <<"%" << endl;
+                    cout << "Total de entrevistados que possui ao menos o ensino médio completo: " << resNum << " " << ent.Porcentagem(resNum) <<"%" << endl;
                 }
 
                 //idade média dos entrevistados que utilizam tablet
@@ -394,7 +394,7 @@ int main(){
 
             if(op != 9) op = novaOperacao();
         }
-    }while(op != 8);
+    }while(op != 9);
     system(CLEARSCREEN);
     
     return 0;
