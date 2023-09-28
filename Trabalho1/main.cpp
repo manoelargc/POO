@@ -261,7 +261,7 @@ int main(){
                     cout << "Total de entrevistados com area prioritária em educação: " << resNum << " " << ent.Porcentagem(resNum) <<"%" << endl;
                 }
                 if(op2 == 3){
-                    resNum = ent.estatisticaArea("Tranosporte");
+                    resNum = ent.estatisticaArea("Transporte");
                     cout << "Total de entrevistados com area prioritária em transporte: " << resNum << " " << ent.Porcentagem(resNum) <<"%" << endl;
                 }
                 if(op2 == 4){
@@ -292,7 +292,7 @@ int main(){
                 cout << "[1] Entrevistados com idade inferior a 30 anos" << endl;
                 cout << "[2] Entrevistados residentes nas regiões Norte e Sul" << endl;
                 cout << "[3] Entrevistados que possui ao menos o ensino médio completo" << endl;
-                cout << "[4] Idade média dos entrevistados que utilizam tablet" << endl;
+                cout << "[4] Faixa etaria dos entrevistados que utilizam tablet" << endl;
                 cout << "[5] Número de entrevistados com idade acima de 30 anos que utilizam Notebook ou Netbook" << endl;
                 cout << "[6] Área prioritária das pessoas com idade acima de 60 anos" << endl;
                 cout << "Digite a opcao desejada: ";
@@ -318,7 +318,7 @@ int main(){
                     cout << "Total de entrevistados que possui ao menos o ensino médio completo: " << resNum << " " << ent.Porcentagem(resNum) <<"%" << endl;
                 }
 
-                //idade média dos entrevistados que utilizam tablet
+                //Faixa etaria dos entrevistados que utilizam tablet
                 if(op2 == 4){
                     resNum = ent.idadeTech("Tablet","Até 15 anos");
                     resString = "Até 15 anos";
@@ -338,7 +338,7 @@ int main(){
                         resString = "Acima de 60 anos";
                     }
 
-                    cout << "A idade média dos entrevistados que utilizam tablet é:  " << resString << endl;
+                    cout << "A faixa etaria dos entrevistados que utilizam tablet é:  " << resString << endl;
                 }
 
                 //número de entrevistados acima de 30 que usam notbook
@@ -357,9 +357,9 @@ int main(){
                         resString = "Educação";
                     }
 
-                    if(ent.areaIdade("Acima de 60 anos","Tranosporte") > resNum){
-                        resNum = ent.areaIdade("Acima de 60 anos","Tranosporte");
-                        resString = "Tranosporte";
+                    if(ent.areaIdade("Acima de 60 anos","Transporte") > resNum){
+                        resNum = ent.areaIdade("Acima de 60 anos","Transporte");
+                        resString = "Transporte";
                     }
 
                     if(ent.areaIdade("Acima de 60 anos","Lazer") > resNum){
