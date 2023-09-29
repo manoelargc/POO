@@ -10,14 +10,14 @@ Este trabalho é propriedade de [Manoela Resende](https://github.com/manoelargc)
 Este projeto consiste em um programa C++ que lê dados de entrevistados a partir de um arquivo CSV, realiza várias estatísticas pré-definidas para o grupo no Moodle, e com base nos dados e exibe os resultados no console.  
 
 São as estatísticas: 
-- Número total de entrevistados
-- Percentual de entrevistados do gênero feminino
-- Número de entrevistados com idade inferior a 30 anos
-- Percentual de entrevistados residentes nas regiões Norte e Sul
-- Percentual de entrevistados que possui ao menos o ensino médio completo
-- Idade média dos entrevistados que utilizam tablet
-- Número de entrevistados com idade acima de 30 anos que utilizam Notebook ou Netbook
-- Área prioritária das pessoas com idade acima de 60 anos
+- Número total de entrevistados;
+- Percentual de entrevistados do gênero feminino;
+- Número de entrevistados com idade inferior a 30 anos;
+- Percentual de entrevistados residentes nas regiões Norte e Sul;
+- Percentual de entrevistados que possui ao menos o ensino médio completo;
+- Faixa etaria dos entrevistados que utilizam tablet;
+- Número de entrevistados com idade acima de 30 anos que utilizam Notebook ou Netbook;
+- Área prioritária das pessoas com idade acima de 60 anos.
 
 
 ### Pré-requisitos
