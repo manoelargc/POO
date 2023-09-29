@@ -33,7 +33,7 @@ Para compilar o projeto, siga os passos abaixo:
 3. Use o seguinte comando para compilar os arquivos fonte:
 
 ```bash
-g++ -o projeto Arquivo.cpp Arquivo.h entrevistado.cpp entrevistado.h entrevistados.cpp entrevistados.h main.cpp
+g++ -o projeto Arquivo.cpp Arquivo.h entrevistado.cpp entrevistado.h entrevistados.cpp entrevistados.h interface.cpp interface.h main.cpp
 ```
 
 Isso irá gerar um executável chamado "projeto" no mesmo diretório.
