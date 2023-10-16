@@ -1,0 +1,3 @@
+Código: 1, Nome: Harry Potter e a Câmara Secreta, Valor: 45.9, Autor: J. K. Rowling, Editora: Rocco
+Código: 2, Nome: Info Exame, Valor: 10.0, Editora: Globo
+Código: 3, Nome: Gente Grande, Valor: 59.9, Autor: Dennis Dugan, Estilo: Comédia
