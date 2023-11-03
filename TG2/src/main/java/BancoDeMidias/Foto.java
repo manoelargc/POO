@@ -16,14 +16,14 @@ public class Foto extends Midia {
     //metodos especiais
 
     //construtor
-    public Foto(String fotografo, String pessoas, String local, int dia, int mes) {
+/*    public Foto(String fotografo, String pessoas, String local, int dia, int mes) {
         this.fotografo = fotografo;
         this.pessoas = pessoas;
         this.local = local;
         this.dia = dia;
         this.mes = mes;
 
-    }
+    }*/
 
     //get e set
     public String getFotografo() {
