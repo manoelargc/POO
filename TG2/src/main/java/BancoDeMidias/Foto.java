@@ -65,4 +65,16 @@ public class Foto extends Midia {
     public void setMes(int mes) {
         this.mes = mes;
     }
+
+    //toString
+    @Override
+    public String toString() {
+        return super.toString() + "\n" +
+                "Fotógrafo: " + getFotografo() + "\n" +
+                "Pessoas: " + getPessoas() + "\n" +
+                "Local: " + getLocal() + "\n" +
+                "Data: " + data();
+    }
 }
+
+

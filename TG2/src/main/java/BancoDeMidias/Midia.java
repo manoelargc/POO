@@ -41,4 +41,11 @@ public abstract class Midia {
     public void setAno(int ano) {
         this.ano = ano;
     }
+
+    //toString
+    public String toString() {
+        return "Título: " + getTitulo() + "\n" +
+                "Descrição: " + getDescricao() + "\n" +
+                "Ano: " + getAno();
+    }
 }

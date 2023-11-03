@@ -23,4 +23,13 @@ public class Filme extends Multimidia {
     public void setAtores(String atores) {
         this.atores = atores;
     }
+
+    //tostring
+    @Override
+    public String toString() {
+        return super.toString() + "\n" +
+                "Diretor: " + getDiretor() + "\n" +
+                "Atores Principais: " + getAtores();
+    }
+
 }

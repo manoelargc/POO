@@ -22,6 +22,13 @@ public class Multimidia extends Midia {
 
     //metodos especiais
     //constructor
+/*    public Multimidia(String genero, String idioma, int horas, int minutos, int segundos) {
+        this.genero = genero;
+        this.idioma = idioma;
+        this.horas = horas;
+        this.minutos = minutos;
+        this.segundos = segundos;
+    }*/
 
     //get e set
     public String getGenero() {
@@ -63,4 +70,14 @@ public class Multimidia extends Midia {
     public void setSegundos(int segundos) {
         this.segundos = segundos;
     }
+
+    //toString
+    @Override
+    public String toString() {
+        return super.toString() + "\n" +
+                "Gênero: " + getGenero() + "\n" +
+                "Idioma: " + getIdioma() + "\n" +
+                "Duração: " + duracao();
+    }
+
 }

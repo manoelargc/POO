@@ -2,18 +2,18 @@ package BancoDeMidias;
 
 public class Musica extends Multimidia {
     //atributos
-    private String autores;
+    private String compositores;
     private String interpretes;
 
     //metodos especiais
     //get e set
 
-    public String getAutores() {
-        return autores;
+    public String getCompositores() {
+        return compositores;
     }
 
-    public void setAutores(String autores) {
-        this.autores = autores;
+    public void setCompositores(String compositores) {
+        this.compositores = compositores;
     }
 
     public String getInterpretes() {
@@ -23,4 +23,13 @@ public class Musica extends Multimidia {
     public void setInterpretes(String interpretes) {
         this.interpretes = interpretes;
     }
+
+    //tostring
+    @Override
+    public String toString() {
+        return super.toString() + "\n" +
+                "Compositores: " + getCompositores() + "\n" +
+                "Intérpretes: " + getInterpretes();
+    }
 }
+
