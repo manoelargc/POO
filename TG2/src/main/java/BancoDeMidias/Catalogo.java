@@ -1,67 +1,68 @@
 package BancoDeMidias;
 
 public class Catalogo implements ICatalogo {
-    // Atributos
+    // atributos
     private Nodo raiz; // Raiz da árvore
 
-    // Métodos
-    public void inserir(Midia midia) {
-        raiz = inserirRecursivo(raiz, midia);
+    // metodos
+    public void insere(Midia midia) {
+        raiz = insereRecursivo(raiz, midia);
     }
 
-    private Nodo inserirRecursivo(Nodo atual, Midia midia) {
+    private Nodo insereRecursivo(Nodo atual, Midia midia) {
         if (atual == null) {
             return new Nodo(midia);
         }
 
-        int comparacao = midia.getTitulo().compareTo(atual.getMidia().getTitulo());
+        int compare = midia.getTitulo().compareTo(atual.getMidia().getTitulo());
 
-        if (comparacao < 0) {
-            atual.setEsquerda(inserirRecursivo(atual.getEsquerda(), midia));
-        } else if (comparacao > 0) {
-            atual.setDireita(inserirRecursivo(atual.getDireita(), midia));
+        if (compare < 0) {
+            atual.setEsquerda(insereRecursivo(atual.getEsquerda(), midia));
+        } else if (compare > 0) {
+            atual.setDireita(insereRecursivo(atual.getDireita(), midia));
         }
 
         return atual;
     }
 
-    public void exibir() {
-        exibirRecursivo(raiz);
+    public void mostra() {
+        mostraRecursivo(raiz);
     }
 
-    private void exibirRecursivo(Nodo atual) {
+    private void mostraRecursivo(Nodo atual) {
         if (atual != null) {
-            exibirRecursivo(atual.getEsquerda());
+            mostraRecursivo(atual.getEsquerda());
             System.out.println(atual.getMidia().getTitulo());
-            exibirRecursivo(atual.getDireita());
+            mostraRecursivo(atual.getDireita());
         }
     }
 
-    public Midia consultar(String titulo) {
-        return consultarRecursivo(raiz, titulo);
+    public Midia consulta(String titulo) {
+        return consultaRecursivo(raiz, titulo);
     }
 
-    private Midia consultarRecursivo(Nodo atual, String titulo) {
+    private Midia consultaRecursivo(Nodo atual, String titulo) {
         if (atual == null) {
             return null;
         }
 
-        int comparacao = titulo.compareTo(atual.getMidia().getTitulo());
+        int compare = titulo.compareTo(atual.getMidia().getTitulo());
 
-        if (comparacao < 0) {
-            return consultarRecursivo(atual.getEsquerda(), titulo);
-        } else if (comparacao > 0) {
-            return consultarRecursivo(atual.getDireita(), titulo);
+        if (compare < 0) {
+            return consultaRecursivo(atual.getEsquerda(), titulo);
+        } else if (compare > 0) {
+            return consultaRecursivo(atual.getDireita(), titulo);
         }
 
         return atual.getMidia();
     }
 
     public void editar(String titulo, Midia novaMidia) {
-        // Implementar a edição de uma mídia
+
     }
 
-    public void excluir(String titulo) {
-        // Implementar a exclusão de uma mídia
+    public void delete(String titulo) {
+
     }
 }
+

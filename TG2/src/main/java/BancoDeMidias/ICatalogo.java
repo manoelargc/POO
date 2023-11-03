@@ -1,9 +1,9 @@
 package BancoDeMidias;
 
 public interface ICatalogo {
-    void inserir(Midia midia);
-    void exibir();
-    Midia consultar(String titulo);
+    void insere(Midia midia);
+    void mostra();
+    Midia consulta(String titulo);
     void editar(String titulo, Midia novaMidia);
-    void excluir(String titulo);
+    void delete(String titulo);
 }
