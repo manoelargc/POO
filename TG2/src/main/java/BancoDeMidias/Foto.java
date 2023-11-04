@@ -4,6 +4,7 @@ public class Foto extends Midia {
     //atributos
     private String fotografo;
     private String pessoas;
+    //mudar pra vetor
     private String local;
     private int dia;
     private int mes;

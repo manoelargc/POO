@@ -9,7 +9,7 @@ public class Multimidia extends Midia {
     private int segundos;
 
     //metodos publicos
-    public String duracao(){
+    public String getDuracao(){
         if (getHoras() == 0 && getMinutos()>0){
             return getMinutos() + " min e " + getSegundos() + " segundos";
         } else if (getMinutos()==0) {

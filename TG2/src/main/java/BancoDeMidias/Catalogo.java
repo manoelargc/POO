@@ -17,28 +17,25 @@ public class Catalogo implements ICatalogo {
 
         try (BufferedReader br = new BufferedReader(new FileReader(nomeArquivo))) {
             while ((linha = br.readLine()) != null) {
-                // Use o separador para dividir a linha em colunas
+                // dividir a linha em colunas
                 String[] colunas = linha.split(separadorCSV);
 
-                // Agora você pode usar as colunas para criar uma nova mídia e adicioná-la ao catálogo
-                // Por exemplo, se a primeira coluna for o tipo de mídia:
                 String tipo = colunas[0];
                 String titulo = colunas[1];
                 String descricao = colunas[2];
-                // Crie uma nova mídia com essas informações e adicione-a ao catálogo
                 Midia midia;
                 switch (tipo) {
                     case "Foto":
                         midia = new Foto();
-                        // Defina os atributos específicos da Foto aqui
+                        //falta def
                         break;
                     case "Musica":
                         midia = new Musica();
-                        // Defina os atributos específicos da Musica aqui
+                        //falta def
                         break;
                     case "Filme":
                         midia = new Filme();
-                        // Defina os atributos específicos do Filme aqui
+                        //falta def
                         break;
                     default:
                         break;

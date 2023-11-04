@@ -7,3 +7,5 @@ public interface ICatalogo {
     void editar(String titulo, Midia novaMidia);
     void delete(String titulo);
 }
+//nao misturar a classe
+//interface exclusiva estr dados

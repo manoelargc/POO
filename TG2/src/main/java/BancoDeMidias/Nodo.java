@@ -4,7 +4,11 @@ public class Nodo {
     // Atributos
     private Midia midia;
     private Nodo esquerda;
+    //ant
     private Nodo direita;
+    //prox
+
+    //possibilidade de mudar pra lista
 
     // Construtor
     public Nodo(Midia midia) {
