@@ -77,7 +77,7 @@ public class Multimidia extends Midia {
         return super.toString() + "\n" +
                 "Gênero: " + getGenero() + "\n" +
                 "Idioma: " + getIdioma() + "\n" +
-                "Duração: " + duracao();
+                "Duração: " + getDuracao();
     }
 
 }
