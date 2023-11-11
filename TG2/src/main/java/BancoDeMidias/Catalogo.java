@@ -1,72 +1,62 @@
 package BancoDeMidias;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-/*
-
 public class Catalogo implements ICatalogo {
-    // atributos
+    private ListaEncadeada<Midia> midias;
+    //falta ler csv
 
-    // metodos
+    public Catalogo() {
+        midias = new ListaEncadeada<>();
+    }
 
-    public void carregarDeCSV(String nomeArquivo) {
-        String linha = "";
-        String separadorCSV = ","; // Define o separador do .csv
+    @Override
+    public void insere(Midia midia) {
+        midias.add(midia);
+    }
 
-        try (BufferedReader br = new BufferedReader(new FileReader(nomeArquivo))) {
-            while ((linha = br.readLine()) != null) {
-                // dividir a linha em colunas
-                String[] colunas = linha.split(separadorCSV);
-
-                String tipo = colunas[0];
-                String titulo = colunas[1];
-                String descricao = colunas[2];
-                Midia midia;
-                switch (tipo) {
-                    case "Foto":
-                        midia = new Foto();
-                        //falta def
-                        break;
-                    case "Musica":
-                        midia = new Musica();
-                        //falta def
-                        break;
-                    case "Filme":
-                        midia = new Filme();
-                        //falta def
-                        break;
-                    default:
-                        break;
-                }
-                midia.setTitulo(titulo);
-                midia.setDescricao(descricao);
-                this.insere(midia);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+    @Override
+    public void mostra() {
+        IteratorListaEncadeada<Midia> iterator = midias.getIterator();
+        while (iterator.temProximo()) {
+            Midia midia = iterator.getProximo().getValor();
+            System.out.println(midia.toString()); // Isso imprimirá as informações da mídia
         }
     }
 
-    public void insere(Midia midia) {
-
-    }
-
-    public void mostra() {
-
-    }
-
+    @Override
     public Midia consulta(String titulo) {
+        IteratorListaEncadeada<Midia> iterator = midias.getIterator();
+        while (iterator.temProximo()) {
+            Midia midia = iterator.getProximo().getValor();
+            if (midia.getTitulo().equalsIgnoreCase(titulo)) {
+                return midia;
+            }
+        }
+        return null; // Mídia não encontrada
     }
 
-
+    @Override
     public void editar(String titulo, Midia novaMidia) {
-
+        IteratorListaEncadeada<Midia> iterator = midias.getIterator();
+        while (iterator.temProximo()) {
+            Midia midia = iterator.getProximo().getValor();
+            if (midia.getTitulo().equalsIgnoreCase(titulo)) {
+                // Substitua a mídia existente pela nova mídia
+                iterator.getProximo().setValor(novaMidia);
+                return;
+            }
+        }
     }
 
+    @Override
     public void delete(String titulo) {
-
+        IteratorListaEncadeada<Midia> iterator = midias.getIterator();
+        while (iterator.temProximo()) {
+            Midia midia = iterator.getProximo().getValor();
+            if (midia.getTitulo().equalsIgnoreCase(titulo)) {
+                iterator.getProximo().setValor(null);
+                iterator.getProximo().setProximo(null);
+                return;
+            }
+        }
     }
 }
-
-*/
