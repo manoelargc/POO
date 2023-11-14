@@ -6,13 +6,14 @@ public class IteratorListaEncadeada<TIPO> {
             this.nodo = atual;
         }
 
-        public boolean temProximo(){
-            if (nodo.getProximo() == null){
-                return false;
-            }else{
-                return true;
-            }
+    public boolean temProximo() {
+        if (this.nodo == null) {
+            return false;
+        } else {
+            return this.nodo.getProximo() != null;
         }
+    }
+
 
         public Nodo<TIPO> getProximo(){
             nodo = nodo.getProximo();

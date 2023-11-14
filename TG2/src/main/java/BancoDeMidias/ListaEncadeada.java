@@ -1,6 +1,6 @@
 package BancoDeMidias;
 
-public class ListaEncadeada<TIPO> {
+public class ListaEncadeada<TIPO> implements IListaEncadeada<TIPO> {
     private Nodo<TIPO> primeiro;
     private Nodo<TIPO> ultimo;
     private int tamanho;
@@ -9,6 +9,7 @@ public class ListaEncadeada<TIPO> {
         this.tamanho = 0;
     }
 
+    @Override
     public Nodo<TIPO> getPrimeiro() {
         return primeiro;
     }
@@ -17,6 +18,7 @@ public class ListaEncadeada<TIPO> {
         this.primeiro = primeiro;
     }
 
+    @Override
     public Nodo<TIPO> getUltimo() {
         return ultimo;
     }
@@ -25,6 +27,7 @@ public class ListaEncadeada<TIPO> {
         this.ultimo = ultimo;
     }
 
+    @Override
     public int getTamanho() {
         return tamanho;
     }
@@ -33,6 +36,7 @@ public class ListaEncadeada<TIPO> {
         this.tamanho = tamanho;
     }
 
+    @Override
     public void add(TIPO novoValor){
         Nodo<TIPO> novoNodo = new Nodo<TIPO>(novoValor);
         if (this.primeiro == null && this.ultimo == null){
@@ -45,6 +49,12 @@ public class ListaEncadeada<TIPO> {
         this.tamanho++;
     }
 
+    @Override
+    public boolean estaVazia() {
+        return getPrimeiro() == null;
+    }
+
+    @Override
     public void remove(TIPO valorProcurado){
         Nodo<TIPO> anterior = null;
         Nodo<TIPO> atual = this.primeiro;
@@ -71,6 +81,7 @@ public class ListaEncadeada<TIPO> {
         }
     }
 
+    @Override
     public Nodo get(int posicao){
         Nodo atual = this.primeiro;
         for(int i=0; i < posicao; i++){

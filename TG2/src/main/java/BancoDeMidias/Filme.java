@@ -5,6 +5,10 @@ public class Filme extends Multimidia {
     private String diretor;
     private String atores;
 
+    public Filme(String titulo, String genero) {
+        super(titulo, genero);
+    }
+
     //metodos especiais
     //get e set
 

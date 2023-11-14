@@ -8,6 +8,15 @@ public abstract class Midia {
     private String descricao;
     private int ano;
 
+    private String imageUrl;
+
+    public Midia(String titulo, String data) {
+    }
+
+    public Midia() {
+
+    }
+
     //get e set
 
     public String getPath() {
@@ -42,10 +51,18 @@ public abstract class Midia {
         this.ano = ano;
     }
 
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     //toString
     public String toString() {
-        return "Título: " + getTitulo() + "\n" +
+        return "\nTítulo: " + getTitulo() + "\n" +
                 "Descrição: " + getDescricao() + "\n" +
                 "Ano: " + getAno();
     }
+
 }

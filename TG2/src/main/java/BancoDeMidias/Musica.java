@@ -5,6 +5,10 @@ public class Musica extends Multimidia {
     private String compositores;
     private String interpretes;
 
+    public Musica(String titulo, String genero) {
+        super(titulo, genero);
+    }
+
     //metodos especiais
     //get e set
 
@@ -29,7 +33,7 @@ public class Musica extends Multimidia {
     public String toString() {
         return super.toString() + "\n" +
                 "Compositores: " + getCompositores() + "\n" +
-                "Intérpretes: " + getInterpretes();
+                "Intérpretes: " + getInterpretes() + "\n";
     }
 }
 

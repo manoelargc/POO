@@ -1,8 +1,6 @@
 package BancoDeMidias;
-
 public class Catalogo implements ICatalogo {
-    private ListaEncadeada<Midia> midias;
-    //falta ler csv
+    private IListaEncadeada<Midia> midias;
 
     public Catalogo() {
         midias = new ListaEncadeada<>();
@@ -23,7 +21,7 @@ public class Catalogo implements ICatalogo {
     }
 
     @Override
-    public Midia consulta(String titulo) {
+    public Midia consultaPorTitulo(String titulo) {
         IteratorListaEncadeada<Midia> iterator = midias.getIterator();
         while (iterator.temProximo()) {
             Midia midia = iterator.getProximo().getValor();
@@ -49,14 +47,57 @@ public class Catalogo implements ICatalogo {
 
     @Override
     public void delete(String titulo) {
+        Nodo<Midia> anterior = null;
+        Nodo<Midia> atual = midias.getPrimeiro();
+        while (atual != null) {
+            Midia midia = atual.getValor();
+            if (midia.getTitulo().equalsIgnoreCase(titulo)) {
+                if (atual == midias.getPrimeiro()) {
+                    midias.setPrimeiro(atual.getProximo());
+                } else if (atual == midias.getUltimo()) {
+                    midias.setUltimo(anterior);
+                    anterior.setProximo(null);
+                } else {
+                    anterior.setProximo(atual.getProximo());
+                }
+                midias.setTamanho(midias.getTamanho() - 1);
+                return;
+            }
+            anterior = atual;
+            atual = atual.getProximo();
+        }
+    }
+
+
+    public IListaEncadeada<Midia> consultaPorData(String data) {
+        IListaEncadeada<Midia> resultado = new ListaEncadeada<>();
         IteratorListaEncadeada<Midia> iterator = midias.getIterator();
         while (iterator.temProximo()) {
             Midia midia = iterator.getProximo().getValor();
-            if (midia.getTitulo().equalsIgnoreCase(titulo)) {
-                iterator.getProximo().setValor(null);
-                iterator.getProximo().setProximo(null);
-                return;
+            if (midia instanceof Foto) {
+                Foto foto = (Foto) midia;
+                if (foto.data().equalsIgnoreCase(data)) {
+                    resultado.add(foto);
+                }
             }
         }
+        return resultado; // Retorna uma lista de fotos com a data correspondente
     }
+
+    public IListaEncadeada<Midia> consultaPorGenero(String genero) {
+        IListaEncadeada<Midia> resultado = new ListaEncadeada<>();
+        IteratorListaEncadeada<Midia> iterator = midias.getIterator();
+        while (iterator.temProximo()) {
+            Midia midia = iterator.getProximo().getValor();
+            if (midia instanceof Multimidia) {
+                Multimidia multimidia = (Multimidia) midia;
+                if (multimidia.getGenero().equalsIgnoreCase(genero)) {
+                    resultado.add(multimidia);
+                }
+            }
+        }
+        return resultado; // Retorna uma lista de multimídias com o gênero correspondente
+    }
+
+
 }
