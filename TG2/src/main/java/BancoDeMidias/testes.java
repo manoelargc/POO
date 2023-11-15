@@ -15,33 +15,37 @@ public class testes {
             //System.out.println(m.duracao());
             System.out.println(m);*/
 
-/*            ListaEncadeada<String> lista = new ListaEncadeada<String>();
+/*        ListaEncadeada<Midia> lista = new ListaEncadeada<Midia>();
 
-            lista.add("Manu");
-            lista.add("Rafa");
-            //lista.add("Eduarda");
-            lista.remove("Manu");
-            System.out.println(lista.getTamanho());*/
+        lista.add("Manu");
+        lista.add("Rafa");
+        //lista.add("Eduarda");
+        lista.remove("Manu");
+        System.out.println(lista.getTamanho());*/
 
-            //-------------
-/*        // Cria um novo catálogo
+        //----------------------------------------------------
+
+/*
+
+        // Cria um novo catálogo
         Catalogo catalogo = new Catalogo();
 
         // Cria algumas mídias
 
 // Cria uma nova foto
-        Foto foto = new Foto("crf", "01/01/2023");
+        Foto foto = new Foto("crf", 1, 1, 2023);
 
 // Define os atributos da foto
-        foto.setFotografo("Nome do Fotógrafo");
+        foto.setFotografo("manu");
+        foto.setDescricao("oioi");
         foto.setPessoas(new String[]{"Pessoa 1", "Pessoa 2", "Pessoa 3"});
-        foto.setLocal("Local da Foto");
+        foto.setLocal("rj");
         foto.setDia(1);
         foto.setMes(1);
         foto.setAno(2023);
 
 // Insere a foto no catálogo
-            catalogo.insere(foto);
+        catalogo.insere(foto);
 
 
         Musica musica = new Musica("Título da Música", "Gênero da Música");
@@ -59,7 +63,7 @@ public class testes {
         // Consulta uma mídia por título
         Midia midia = catalogo.consultaPorTitulo("crf");
         if (midia != null) {
-            System.out.println("Mídia encontrada:" +  midia.toString());
+            System.out.println("Mídia encontrada:" + midia.toString());
         } else {
             System.out.println("Mídia não encontrada.");
         }*/
@@ -74,7 +78,7 @@ public class testes {
 
         catalogo.mostra();*/
 
-       //------------
+        //------------
      /*   // Cria um novo catálogo
         Catalogo catalogo = new Catalogo();
 
@@ -112,9 +116,34 @@ public class testes {
             // Verifique se as mídias foram inseridas corretamente
             catalogo.mostra();*/
 
-        LeitorCSV leitor = new LeitorCSV();
+/*        LeitorCSV leitor = new LeitorCSV();
         leitor.testarLeituraEInsercao();
+        }*/
+
+        // Cria um novo catálogo
+        Catalogo catalogo = new Catalogo();
+
+        // Cria um novo leitor CSV
+        LeitorCSV leitor = new LeitorCSV();
+
+        // Lê as mídias do arquivo e as adiciona ao catálogo
+        ListaEncadeada<Midia> midias = leitor.lerArquivo("C:\\\\Users\\\\manor\\\\OneDrive\\\\Documentos\\\\GitHub\\\\POO\\\\TG2\\\\src\\\\main\\\\java\\\\BancoDeMidias\\\\CSV\\\\midia.csv");
+        for (int i = 0; i < midias.getTamanho(); i++) {
+            Midia midia = (Midia) midias.get(i).getValor();
+            catalogo.insere(midia);
         }
+
+        // Mostra todas as mídias no catálogo
+        catalogo.mostra();
+
+        // Consulta uma mídia por título
+        Midia midia = catalogo.consultaPorTitulo("crf");
+        if (midia != null) {
+            System.out.println("Mídia encontrada:" + midia.toString());
+        } else {
+            System.out.println("Mídia não encontrada.");
+        }
+    }
 
     }
 

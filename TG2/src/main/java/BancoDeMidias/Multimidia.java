@@ -39,9 +39,9 @@ public class Multimidia extends Midia {
     //get e set
 
     public void setDuracao(int horas, int minutos, int segundos){
-        this.getHoras(horas);
-        this.getMinutos(minutos);
-        this.getSegundos(segundos);
+        this.setHoras(horas);
+        this.setMinutos(minutos);
+        this.setSegundos(segundos);
     }
     public String getGenero() {
         return genero;
