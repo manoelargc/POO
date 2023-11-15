@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 
 
 public class LeitorCSV{
@@ -32,9 +33,9 @@ public class LeitorCSV{
                         midias.add(criarMusica(campos));
                     }
 
-                    /*Imprime os campos para depuração
-                    System.out.println("Array de Mídias: ");
-                    System.out.println(Arrays.toString(campos));*/
+                    //Imprime os campos para depuração
+//                    System.out.println("Array de Mídias: ");
+//                    System.out.println(Arrays.toString(campos));
 
                 }
 
@@ -51,7 +52,7 @@ public class LeitorCSV{
             return midias;
         }
 
-    private Foto criarFoto(String[] campos) {
+    protected static Foto criarFoto(String[] campos) {
         Foto foto = new Foto(campos[1], Integer.parseInt(campos[7]), Integer.parseInt(campos[8]), Integer.parseInt(campos[3]));
         foto.setDescricao(campos[2]);
         foto.setFotografo(campos[4]);
@@ -67,7 +68,7 @@ public class LeitorCSV{
         return foto;
     }
 
-    private Filme criarFilme(String[] campos) {
+    protected static Filme criarFilme(String[] campos) {
         Filme filme = new Filme(campos[1], campos[4]);
         filme.setDescricao(campos[2]);
         filme.setAno(Integer.parseInt(campos[3]));
@@ -80,7 +81,7 @@ public class LeitorCSV{
         return filme;
     }
 
-    private Musica criarMusica(String[] campos) {
+    protected static Musica criarMusica(String[] campos) {
         Musica musica = new Musica(campos[1], campos[4]);
         musica.setDescricao(campos[2]);
         musica.setAno(Integer.parseInt(campos[3]));
