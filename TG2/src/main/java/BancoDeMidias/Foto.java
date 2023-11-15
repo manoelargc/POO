@@ -34,11 +34,11 @@ public class Foto extends Midia {
     // Métodos públicos
 
     /**
-     * Método para obter a data em que a foto foi tirada
+     * Método para obter a getData em que a foto foi tirada
      *
-     * @return A data em que a foto foi tirada
+     * @return A getData em que a foto foi tirada
      */
-    public String data() {
+    public String getData() {
         return getDia() + "/" + getMes() + "/" + getAno();
     }
 
@@ -117,7 +117,7 @@ public class Foto extends Midia {
                 "Fotógrafo: " + getFotografo() + "\n" +
                 "Pessoas: " + Arrays.toString(getPessoas()) + "\n" +
                 "Local: " + getLocal() + "\n" +
-                "Data: " + data() + "\n";
+                "Data: " + getData() + "\n";
     }
 }
 

@@ -1,4 +1,9 @@
 package BancoDeMidias;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Catalogo implements ICatalogo {
     private IListaEncadeada<Midia> midias;
 
@@ -66,7 +71,7 @@ public class Catalogo implements ICatalogo {
         return null;
     }
 
-    @Override
+/*    @Override
     public void editar(String titulo, Midia novaMidia) {
         if (!midias.estaVazia()) {
             IteratorListaEncadeada<Midia> iterator = midias.getIterator();
@@ -80,7 +85,114 @@ public class Catalogo implements ICatalogo {
         } else {
             System.out.println("O catálogo está vazio.");
         }
+    }*/
+
+    public void editar(String titulo, String campo, String novoValor) {
+        if (!midias.estaVazia()) {
+            IteratorListaEncadeada<Midia> iterator = midias.getIterator();
+            while (iterator.temProximo()) {
+                Midia midia = iterator.getProximo().getValor();
+                if (midia.getTitulo().equalsIgnoreCase(titulo)) {
+                    switch (campo.toLowerCase()) {
+                        case "titulo":
+                            midia.setTitulo(novoValor);
+                            break;
+                        case "descricao":
+                            midia.setDescricao(novoValor);
+                            break;
+                        case "ano":
+                            int novoInt = Integer.parseInt(novoValor);
+                            midia.setAno(novoInt);
+                            break;
+                        case "imagem":
+                            midia.setImageUrl(novoValor);
+                            break;
+                        case "fotografo":
+                            if (midia instanceof Foto){
+                            ((Foto) midia).setFotografo(novoValor);
+                            }
+                            break;
+                        case "pessoas":
+                            if (midia instanceof Foto){
+                                String[] novoVetorP = new String[]{novoValor};
+                                ((Foto) midia).setPessoas(novoVetorP);
+                            }
+                            break;
+                        case "data":
+                            if (midia instanceof Foto) {
+                                String[] partes = novoValor.split("/");
+                                if (partes.length == 3) {
+                                    int horas = Integer.parseInt(partes[0]);
+                                    int minutos = Integer.parseInt(partes[1]);
+                                    int segundos = Integer.parseInt(partes[2]);
+                                    ((Foto) midia).setData(horas, minutos, segundos);
+                                } else {
+                                    System.out.println("Formato de duração inválido. Use o formato dd/mm/aaaa.");
+                                }
+                            }
+                            break;
+                        case "genero":
+                            if (midia instanceof Multimidia){
+                                ((Multimidia) midia).setGenero(novoValor);
+                            }
+                            break;
+                        case "idioma":
+                            if (midia instanceof Multimidia){
+                                ((Multimidia) midia).setIdioma(novoValor);
+                            }
+                            break;
+                        case "duracao":
+                            if (midia instanceof Multimidia) {
+                                String[] partes = novoValor.split(":");
+                                if (partes.length == 3) {
+                                    int horas = Integer.parseInt(partes[0]);
+                                    int minutos = Integer.parseInt(partes[1]);
+                                    int segundos = Integer.parseInt(partes[2]);
+                                    ((Multimidia) midia).setDuracao(horas, minutos, segundos);
+                                } else {
+                                    System.out.println("Formato de duração inválido. Use o formato HH:MM:SS.");
+                                }
+                            }
+                                break;
+
+                        case "diretor":
+                            if (midia instanceof Filme){
+                                ((Filme) midia).setDiretor(novoValor);
+                            }
+                            break;
+                        case "atores":
+                            if (midia instanceof Filme){
+                                String[] novoVetorP = new String[]{novoValor};
+                                ((Filme) midia).setAtores(novoVetorP);
+                            }
+                            break;
+                        case "compositores":
+                            if (midia instanceof Musica){
+                                String[] novoVetorP = new String[]{novoValor};
+                                ((Musica) midia).setCompositores(novoVetorP);
+                            }
+                            break;
+                        case "interpretes":
+                            if (midia instanceof Musica){
+                                String[] novoVetorP = new String[]{novoValor};
+                                ((Musica) midia).setInterpretes(novoVetorP);
+                            }
+                            break;
+
+
+                        default:
+                            System.out.println("Campo inválido.");
+                            break;
+                    }
+                    return;
+                }
+            }
+        } else {
+            System.out.println("O catálogo está vazio.");
+        }
     }
+
+
 
     @Override
     public void delete(String titulo) {
@@ -99,6 +211,7 @@ public class Catalogo implements ICatalogo {
                         anterior.setProximo(atual.getProximo());
                     }
                     midias.setTamanho(midias.getTamanho() - 1);
+
                     return;
                 }
                 anterior = atual;
@@ -110,7 +223,7 @@ public class Catalogo implements ICatalogo {
     }
 
 
-    public IListaEncadeada<Midia> consultaPorData(String data) {
+    public void consultaPorData(String data) {
         IListaEncadeada<Midia> resultado = new ListaEncadeada<>();
         if (!midias.estaVazia()) {
             IteratorListaEncadeada<Midia> iterator = midias.getIterator();
@@ -118,18 +231,21 @@ public class Catalogo implements ICatalogo {
                 Midia midia = iterator.getProximo().getValor();
                 if (midia instanceof Foto) {
                     Foto foto = (Foto) midia;
-                    if (foto.data().equalsIgnoreCase(data)) {
+                    if (foto.getData().equalsIgnoreCase(data)) {
                         resultado.add(foto);
                     }
                 }
             }
+            for (int i = 0; i < resultado.getTamanho(); i++) {
+                Midia midia = (Midia) resultado.get(i).getValor();
+                System.out.println(midia);
+            }
         } else {
             System.out.println("O catálogo está vazio.");
         }
-        return resultado; // Retorna uma lista de fotos com a data correspondente
     }
 
-    public IListaEncadeada<Midia> consultaPorGenero(String genero) {
+    public void consultaPorGenero(String genero) {
         IListaEncadeada<Midia> resultado = new ListaEncadeada<>();
         if (!midias.estaVazia()) {
             IteratorListaEncadeada<Midia> iterator = midias.getIterator();
@@ -142,9 +258,15 @@ public class Catalogo implements ICatalogo {
                     }
                 }
             }
+            for (int i = 0; i < resultado.getTamanho(); i++) {
+                Midia midia = (Midia) resultado.get(i).getValor();
+                System.out.println(midia);
+            }
         } else {
             System.out.println("O catálogo está vazio.");
         }
-        return resultado; // Retorna uma lista de multimídias com o gênero correspondente
     }
+
+
+
 }

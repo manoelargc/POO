@@ -132,13 +132,22 @@ public class testes {
             Midia midia = (Midia) midias.get(i).getValor();
             catalogo.insere(midia);
         }*/
-        catalogo.carregaDados("C:\\\\Users\\\\manor\\\\OneDrive\\\\Documentos\\\\GitHub\\\\POO\\\\TG2\\\\src\\\\main\\\\java\\\\BancoDeMidias\\\\CSV\\\\midia.csv");
+        catalogo.carregaDados("C:\\Users\\manor\\OneDrive\\Documentos\\GitHub\\POO\\TG2\\src\\main\\java\\BancoDeMidias\\CSV\\midia.csv");
 
         // Mostra todas as mídias no catálogo
         //catalogo.mostra();
 
         // Consulta uma mídia por título
-        catalogo.consultaPorTitulo("Click");
+        //catalogo.consultaPorTitulo("don't stop me now");
+
+        //nao funciona
+        //catalogo.consultaPorData("08/09/2003");
+
+        catalogo.editar("bohemian rhapsody", "compositores", "rafa,manu");
+
+        catalogo.consultaPorTitulo("bohemian rhapsody");
+
+        //catalogo.consultaPorGenero("Comedia");
 
 
         //

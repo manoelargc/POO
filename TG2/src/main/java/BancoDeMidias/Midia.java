@@ -14,6 +14,13 @@ public abstract class Midia {
     private String imageUrl;
 
     /**
+     * Construtor padrão/vazio da classe Midia
+     */
+    public Midia() {
+    }
+
+
+    /**
      * Construtor da classe Midia.
      *
      * @param titulo o título da mídia
@@ -25,11 +32,6 @@ public abstract class Midia {
         this.descricao= getDescricao();
     }
 
-    /**
-     * Construtor padrão da classe Midia
-     */
-    public Midia() {
-    }
 
     // Getters e setters
 
@@ -71,7 +73,8 @@ public abstract class Midia {
      * @return Uma representação pra retornar em String os atributos de Midia
      */
     public String toString() {
-        return "\nTítulo: " + getTitulo() + "\n" +
+        return "\nImagem: " + getImageUrl() + "\n" +
+                "Título: " + getTitulo() + "\n" +
                 "Descrição: " + getDescricao() + "\n" +
                 "Ano: " + getAno();
     }
