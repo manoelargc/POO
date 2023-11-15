@@ -8,15 +8,21 @@ public class Multimidia extends Midia {
     private int minutos;
     private int segundos;
 
+    public Multimidia(String titulo, String genero) {
+        super();
+        setTitulo(titulo);
+        setGenero(genero);
+    }
+
     //metodos publicos
     public String getDuracao(){
-        if (getHoras() == 0 && getMinutos()>0){
-            return getMinutos() + " min e " + getSegundos() + " segundos";
-        } else if (getMinutos()==0) {
-            return getSegundos() + " segundos";
+        if (getHoras(horas) == 0 && getMinutos(minutos)>0){
+            return getMinutos(minutos) + " min e " + getSegundos(segundos) + " segundos";
+        } else if (getMinutos(minutos)==0) {
+            return getSegundos(segundos) + " segundos";
         }
         else {
-            return getHoras() + " horas " + getMinutos() + " min e " + getSegundos() + " segundos";
+            return getHoras(horas) + " horas " + getMinutos(minutos) + " min e " + getSegundos(segundos) + " segundos";
         }
     }
 
@@ -31,6 +37,12 @@ public class Multimidia extends Midia {
     }*/
 
     //get e set
+
+    public void setDuracao(int horas, int minutos, int segundos){
+        this.setHoras(horas);
+        this.setMinutos(minutos);
+        this.setSegundos(segundos);
+    }
     public String getGenero() {
         return genero;
     }
@@ -47,24 +59,24 @@ public class Multimidia extends Midia {
         this.idioma = idioma;
     }
 
-    public int getHoras() {
-        return horas;
+    public int getHoras(int horas) {
+        return this.horas;
     }
 
     public void setHoras(int horas) {
         this.horas = horas;
     }
 
-    public int getMinutos() {
-        return minutos;
+    public int getMinutos(int minutos) {
+        return this.minutos;
     }
 
     public void setMinutos(int minutos) {
         this.minutos = minutos;
     }
 
-    public int getSegundos() {
-        return segundos;
+    public int getSegundos(int segundos) {
+        return this.segundos;
     }
 
     public void setSegundos(int segundos) {
@@ -77,7 +89,7 @@ public class Multimidia extends Midia {
         return super.toString() + "\n" +
                 "Gênero: " + getGenero() + "\n" +
                 "Idioma: " + getIdioma() + "\n" +
-                "Duração: " + duracao();
+                "Duração: " + getDuracao();
     }
 
 }

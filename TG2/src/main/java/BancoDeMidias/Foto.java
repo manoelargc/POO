@@ -1,32 +1,49 @@
 package BancoDeMidias;
 
+import java.util.Arrays;
+
+/**
+ * Classe Foto que estende a classe Midia.
+ *
+ * @author Manoela Resende
+ * @author Eduarda Sifuentes
+ */
 public class Foto extends Midia {
-    //atributos
+    // Atributos
     private String fotografo;
-    private String pessoas;
-    //mudar pra vetor
+    private String[] pessoas;
+    private int numPessoas;
     private String local;
     private int dia;
     private int mes;
 
-    //metodos publicos
-    public String data(){
-            return getDia() + "/" + getMes() + "/" + getAno();
-        }
+    /**
+     * Construtor da classe Foto.
+     *
+     * @param titulo título da foto
+     * @param dia    dia em que a foto foi tirada
+     * @param mes    mês em que a foto foi tirada
+     * @param ano    ano em que a foto foi tirada
+     */
+    public Foto(String titulo, int dia, int mes, int ano) {
+        super(titulo, ano);
+        this.setDia(dia);
+        this.setMes(mes);
+    }
 
-    //metodos especiais
+    // Métodos públicos
 
-    //construtor
-/*    public Foto(String fotografo, String pessoas, String local, int dia, int mes) {
-        this.fotografo = fotografo;
-        this.pessoas = pessoas;
-        this.local = local;
-        this.dia = dia;
-        this.mes = mes;
+    /**
+     * Método para obter a getData em que a foto foi tirada
+     *
+     * @return A getData em que a foto foi tirada
+     */
+    public String getData() {
+        return getDia() + "/" + getMes() + "/" + getAno();
+    }
 
-    }*/
+    // Getters e setters
 
-    //get e set
     public String getFotografo() {
         return fotografo;
     }
@@ -35,12 +52,33 @@ public class Foto extends Midia {
         this.fotografo = fotografo;
     }
 
-    public String getPessoas() {
+    public String[] getPessoas() {
         return pessoas;
     }
 
-    public void setPessoas(String pessoas) {
+    public void setPessoas(String[] pessoas) {
         this.pessoas = pessoas;
+        this.numPessoas = pessoas.length;
+    }
+
+    public void setData(int dia, int mes, int ano) {
+        this.setDia(dia);
+        this.setMes(mes);
+        this.setAno(ano);
+    }
+
+    /**
+     * Método para adicionar uma pessoa à foto
+     *
+     * @param pessoa A pessoa a ser adicionada
+     */
+    public void addPessoa(String pessoa) {
+        if (numPessoas < pessoas.length) {
+            this.pessoas[numPessoas] = pessoa;
+            numPessoas++;
+        } else {
+            System.out.println("Não é possível adicionar mais pessoas. O array está cheio.");
+        }
     }
 
     public String getLocal() {
@@ -67,15 +105,19 @@ public class Foto extends Midia {
         this.mes = mes;
     }
 
-    //toString
+    /**
+     * Método toString para representação em String da classe Foto
+     *
+     * @return Uma representação em String da classe Foto, juntando
+     * com as informações da classe midia
+     */
     @Override
     public String toString() {
         return super.toString() + "\n" +
                 "Fotógrafo: " + getFotografo() + "\n" +
-                "Pessoas: " + getPessoas() + "\n" +
+                "Pessoas: " + Arrays.toString(getPessoas()) + "\n" +
                 "Local: " + getLocal() + "\n" +
-                "Data: " + data();
+                "Data: " + getData() + "\n";
     }
 }
-
 

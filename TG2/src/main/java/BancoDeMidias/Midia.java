@@ -1,22 +1,39 @@
 package BancoDeMidias;
-
+/**
+ * Classe abstrata Midia que serve como base para outras classes de mídia
+ *
+ * @author Manoela Resende
+ * @author Eduarda Sifuentes
+ */
 public abstract class Midia {
 
-    //atributos
-    private String path;
+    // Atributos
     private String titulo;
     private String descricao;
     private int ano;
+    private String imageUrl;
 
-    //get e set
-
-    public String getPath() {
-        return path;
+    /**
+     * Construtor padrão/vazio da classe Midia
+     */
+    public Midia() {
     }
 
-    public void setPath(String path) {
-        this.path = path;
+
+    /**
+     * Construtor da classe Midia.
+     *
+     * @param titulo o título da mídia
+     * @param ano ano da mídia
+     */
+    public Midia(String titulo, int ano) {
+        this.titulo = titulo;
+        this.ano = ano;
+        this.descricao= getDescricao();
     }
+
+
+    // Getters e setters
 
     public String getTitulo() {
         return titulo;
@@ -42,9 +59,22 @@ public abstract class Midia {
         this.ano = ano;
     }
 
-    //toString
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    /**
+     * Método toString para representação em String da classe Midia
+     *
+     * @return Uma representação pra retornar em String os atributos de Midia
+     */
     public String toString() {
-        return "Título: " + getTitulo() + "\n" +
+        return "\nImagem: " + getImageUrl() + "\n" +
+                "Título: " + getTitulo() + "\n" +
                 "Descrição: " + getDescricao() + "\n" +
                 "Ano: " + getAno();
     }

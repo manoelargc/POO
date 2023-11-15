@@ -1,38 +1,26 @@
 package BancoDeMidias;
 
-public class Nodo {
-    // Atributos
-    private Midia midia;
-    private Nodo esquerda;
-    //ant
-    private Nodo direita;
-    //prox
+public class Nodo<TIPO> {
+    private TIPO valor;
+    private Nodo<TIPO> proximo;
 
-    //possibilidade de mudar pra lista
-
-    // Construtor
-    public Nodo(Midia midia) {
-        this.midia = midia;
+    public Nodo(TIPO novoValor){
+        this.valor = novoValor;
     }
 
-    // Métodos
-    public Midia getMidia() {
-        return midia;
+    public TIPO getValor() {
+        return valor;
     }
 
-    public Nodo getEsquerda() {
-        return esquerda;
+    public void setValor(TIPO valor) {
+        this.valor = valor;
     }
 
-    public void setEsquerda(Nodo esquerda) {
-        this.esquerda = esquerda;
+    public Nodo<TIPO> getProximo() {
+        return proximo;
     }
 
-    public Nodo getDireita() {
-        return direita;
-    }
-
-    public void setDireita(Nodo direita) {
-        this.direita = direita;
+    public void setProximo(Nodo<TIPO> proximo) {
+        this.proximo = proximo;
     }
 }
