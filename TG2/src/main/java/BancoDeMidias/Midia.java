@@ -1,6 +1,6 @@
 package BancoDeMidias;
 /**
- * Classe abstrata Midia que serve como base para outras classes de mídia
+ * Classe abstrata Midia que serve como base para outras classes de mídia, classe mãe
  *
  * @author Manoela Resende
  * @author Eduarda Sifuentes

@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 
 public class LeitorCSV{
@@ -33,9 +32,9 @@ public class LeitorCSV{
                         midias.add(criarMusica(campos));
                     }
 
-//                    // Imprime os campos para depuração
-//                    System.out.println("Array de Mídias: ");
-//                    System.out.println(Arrays.toString(campos));
+                    /*Imprime os campos para depuração
+                    System.out.println("Array de Mídias: ");
+                    System.out.println(Arrays.toString(campos));*/
 
                 }
 
@@ -93,30 +92,6 @@ public class LeitorCSV{
 
         return musica;
     }
-  /*  void testarLeituraEInsercao() {
-        Catalogo catalogo = new Catalogo();
-        ListaEncadeada<Midia> midias = lerArquivo("C:\\\\Users\\\\manor\\\\OneDrive\\\\Documentos\\\\GitHub\\\\POO\\\\TG2\\\\src\\\\main\\\\java\\\\BancoDeMidias\\\\CSV\\\\tst.txt");
-
-        if (midias.estaVazia()) {
-            System.out.println("Nenhuma mídia foi lida do arquivo.");
-            return;
-        }
-
-        System.out.println("Mídias lidas do arquivo:");
-
-        IteratorListaEncadeada<Midia> iterator = midias.getIterator();
-        while (iterator.temProximo()) {
-            Midia midia = iterator.getProximo().getValor();
-            System.out.println("Lendo: " + midia.getTitulo());
-            catalogo.insere(midia);
-        }
-
-        System.out.println("\nCatálogo após a inserção:");
-
-        // Mostrar o catálogo após a inserção
-        catalogo.mostra();
-    }*/
-
 
 }
 

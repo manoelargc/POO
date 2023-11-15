@@ -71,21 +71,6 @@ public class Catalogo implements ICatalogo {
         return null;
     }
 
-/*    @Override
-    public void editar(String titulo, Midia novaMidia) {
-        if (!midias.estaVazia()) {
-            IteratorListaEncadeada<Midia> iterator = midias.getIterator();
-            while (iterator.temProximo()) {
-                Midia midia = iterator.getProximo().getValor();
-                if (midia.getTitulo().equalsIgnoreCase(titulo)) {
-                    iterator.getProximo().setValor(novaMidia);
-                    return;
-                }
-            }
-        } else {
-            System.out.println("O catálogo está vazio.");
-        }
-    }*/
 
     public void editar(String titulo, String campo, String novoValor) {
         if (!midias.estaVazia()) {

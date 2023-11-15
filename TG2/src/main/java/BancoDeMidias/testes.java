@@ -143,9 +143,11 @@ public class testes {
         //nao funciona
         //catalogo.consultaPorData("08/09/2003");
 
+/*
         catalogo.editar("bohemian rhapsody", "compositores", "rafa,manu");
 
         catalogo.consultaPorTitulo("bohemian rhapsody");
+*/
 
         //catalogo.consultaPorGenero("Comedia");
 
