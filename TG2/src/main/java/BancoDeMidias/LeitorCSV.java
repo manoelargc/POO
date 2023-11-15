@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 
-public class LeitorCSV {
+public class LeitorCSV{
 
         public ListaEncadeada<Midia> lerArquivo(String nomeArquivo) {
             ListaEncadeada<Midia> midias = new ListaEncadeada<>();
@@ -25,12 +25,12 @@ public class LeitorCSV {
 
                     // Cria um novo objeto de mídia com base no tipo
                     if (tipo.equals("Foto")) {
-                        criarFoto(campos);
+                        midias.add(criarFoto(campos));
                     } else if (tipo.equals("Filme")) {
-                        criarFilme(campos);
-                        System.out.println(criarFilme(campos));
+                        midias.add(criarFilme(campos));
+                        //System.out.println(criarFilme(campos));
                     } else if (tipo.equals("Musica")) {
-                        criarMusica(campos);
+                        midias.add(criarMusica(campos));
                     }
 
 //                    // Imprime os campos para depuração
@@ -48,6 +48,7 @@ public class LeitorCSV {
                 e.printStackTrace();
             }
 
+            //System.out.println("midias: " + midias.toString());
             return midias;
         }
 
@@ -92,7 +93,7 @@ public class LeitorCSV {
 
         return musica;
     }
-    void testarLeituraEInsercao() {
+  /*  void testarLeituraEInsercao() {
         Catalogo catalogo = new Catalogo();
         ListaEncadeada<Midia> midias = lerArquivo("C:\\\\Users\\\\manor\\\\OneDrive\\\\Documentos\\\\GitHub\\\\POO\\\\TG2\\\\src\\\\main\\\\java\\\\BancoDeMidias\\\\CSV\\\\tst.txt");
 
@@ -114,7 +115,7 @@ public class LeitorCSV {
 
         // Mostrar o catálogo após a inserção
         catalogo.mostra();
-    }
+    }*/
 
 
 }

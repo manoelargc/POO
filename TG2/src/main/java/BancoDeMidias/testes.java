@@ -124,25 +124,24 @@ public class testes {
         Catalogo catalogo = new Catalogo();
 
         // Cria um novo leitor CSV
-        LeitorCSV leitor = new LeitorCSV();
+/*        LeitorCSV leitor = new LeitorCSV();
 
         // Lê as mídias do arquivo e as adiciona ao catálogo
         ListaEncadeada<Midia> midias = leitor.lerArquivo("C:\\\\Users\\\\manor\\\\OneDrive\\\\Documentos\\\\GitHub\\\\POO\\\\TG2\\\\src\\\\main\\\\java\\\\BancoDeMidias\\\\CSV\\\\midia.csv");
         for (int i = 0; i < midias.getTamanho(); i++) {
             Midia midia = (Midia) midias.get(i).getValor();
             catalogo.insere(midia);
-        }
+        }*/
+        catalogo.carregaDados("C:\\\\Users\\\\manor\\\\OneDrive\\\\Documentos\\\\GitHub\\\\POO\\\\TG2\\\\src\\\\main\\\\java\\\\BancoDeMidias\\\\CSV\\\\midia.csv");
 
         // Mostra todas as mídias no catálogo
-        catalogo.mostra();
+        //catalogo.mostra();
 
         // Consulta uma mídia por título
-        Midia midia = catalogo.consultaPorTitulo("crf");
-        if (midia != null) {
-            System.out.println("Mídia encontrada:" + midia.toString());
-        } else {
-            System.out.println("Mídia não encontrada.");
-        }
+        catalogo.consultaPorTitulo("Click");
+
+
+        //
     }
 
     }

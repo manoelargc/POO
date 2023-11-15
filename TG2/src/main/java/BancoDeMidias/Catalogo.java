@@ -7,6 +7,16 @@ public class Catalogo implements ICatalogo {
     }
 
     @Override
+    public void carregaDados(String path) {
+        LeitorCSV leitor = new LeitorCSV();
+        ListaEncadeada<Midia> midias = leitor.lerArquivo(path);
+        for (int i = 0; i < midias.getTamanho(); i++) {
+            Midia midia = (Midia) midias.get(i).getValor();
+            this.insere(midia);
+        }
+    }
+
+    @Override
     public void insere(Midia midia) {
         System.out.println("Inserindo: " + midia.getTitulo());  // Adicione esta linha para depuração
         midias.add(midia);
@@ -31,18 +41,27 @@ public class Catalogo implements ICatalogo {
         }
     }
 
+
     @Override
     public Midia consultaPorTitulo(String titulo) {
         if (!midias.estaVazia()) {
+            Midia respostaMidia = null;
             IteratorListaEncadeada<Midia> iterator = midias.getIterator();
             while (iterator.temProximo()) {
                 Midia midia = iterator.getProximo().getValor();
                 if (midia.getTitulo().equalsIgnoreCase(titulo)) {
-                    return midia;
+                    System.out.println("Mídia encontrada:" + midia.toString());
+                    respostaMidia = midia;
                 }
+            }
+            if (respostaMidia != null){
+                return respostaMidia;
+            } else {
+                System.out.println("Midia não encontrada.");
             }
         } else {
             System.out.println("O catálogo está vazio.");
+
         }
         return null;
     }
