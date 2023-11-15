@@ -24,13 +24,7 @@ public class testes {
             System.out.println(lista.getTamanho());*/
 
             //-------------
-        /*// Cria um novo leitor CSV
-        LeitorCSV leitor = new LeitorCSV();
-
-        // Lê o arquivo CSV e obtém a lista de mídias
-        ListaEncadeada<Midia> midias = leitor.lerArquivo("C:\\Users\\manor\\OneDrive - unipampa.edu.br\\CC UNIPAMPA\\2023.2\\POO\\Trabalho2\\BancoDeMidias\\CSV\\midias.csv");
-
-        // Cria um novo catálogo
+/*        // Cria um novo catálogo
         Catalogo catalogo = new Catalogo();
 
         // Cria algumas mídias
@@ -68,8 +62,8 @@ public class testes {
             System.out.println("Mídia encontrada:" +  midia.toString());
         } else {
             System.out.println("Mídia não encontrada.");
-        }
-*/
+        }*/
+
         //------------------------------------------------
         // Deleta uma mídia
         //catalogo.delete("Título da Música");
@@ -80,8 +74,8 @@ public class testes {
 
         catalogo.mostra();*/
 
-        //------------
-        // Cria um novo catálogo
+       //------------
+     /*   // Cria um novo catálogo
         Catalogo catalogo = new Catalogo();
 
         // Cria um novo leitor de CSV
@@ -97,17 +91,32 @@ public class testes {
             catalogo.insere(midia);
         }
 
-        if (!midias.estaVazia()) {
-            // Itera sobre a lista
-        } else {
-            System.out.println("A lista está vazia.");
-        }
+
 
 
         // Mostra todas as mídias do catálogo
-        catalogo.mostra();
+        catalogo.mostra();*/
+
+          /*  LeitorCSV leitor = new LeitorCSV();
+            ListaEncadeada<Midia> midias = leitor.lerArquivo("C:\\\\Users\\\\manor\\\\OneDrive\\\\Documentos\\\\GitHub\\\\POO\\\\TG2\\\\src\\\\main\\\\java\\\\BancoDeMidias\\\\CSV\\\\teste.csv");
+
+            // Crie um catálogo
+            ICatalogo catalogo = new Catalogo();
+
+            // Insira cada mídia no catálogo
+            IteratorListaEncadeada<Midia> iterator = midias.getIterator();
+            while (iterator.temProximo()) {
+                catalogo.insere(iterator.getProximo().getValor());
+            }
+
+            // Verifique se as mídias foram inseridas corretamente
+            catalogo.mostra();*/
+
+        LeitorCSV leitor = new LeitorCSV();
+        leitor.testarLeituraEInsercao();
+        }
+
     }
-}
 
 
 

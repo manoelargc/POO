@@ -10,7 +10,7 @@ public abstract class Midia {
 
     private String imageUrl;
 
-    public Midia(String titulo, String data) {
+    public Midia(String titulo, int ano) {
     }
 
     public Midia() {

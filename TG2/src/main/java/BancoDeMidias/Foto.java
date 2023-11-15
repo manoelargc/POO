@@ -11,15 +11,25 @@ public class Foto extends Midia {
         private int dia;
         private int mes;
 
-        public Foto(String titulo, String data) {
+/*        public Foto(String titulo, String data) {
             super(titulo,data);
             setTitulo(titulo);
             data=data();
             pessoas = new String[10];
             numPessoas=0;
-        }
+        }*/
+
+    public Foto(String titulo, int dia, int mes, int ano) {
+        super(titulo, ano);
+        this.setDia(dia);
+        this.setMes(mes);
+    }
+
+
 
         //metodos publicos
+
+
         public String data(){
             return getDia() + "/" + getMes() + "/" + getAno();
         }
