@@ -3,7 +3,7 @@ package BancoDeMidias;
 import java.util.Arrays;
 
 /**
- * Classe Foto que estende a classe Midia.
+ * Classe de fotos que estende a classe Midia
  *
  * @author Manoela Resende
  * @author Eduarda Sifuentes
@@ -65,20 +65,6 @@ public class Foto extends Midia {
         this.setDia(dia);
         this.setMes(mes);
         this.setAno(ano);
-    }
-
-    /**
-     * Método para adicionar uma pessoa à foto
-     *
-     * @param pessoa A pessoa a ser adicionada
-     */
-    public void addPessoa(String pessoa) {
-        if (numPessoas < pessoas.length) {
-            this.pessoas[numPessoas] = pessoa;
-            numPessoas++;
-        } else {
-            System.out.println("Não é possível adicionar mais pessoas. O array está cheio.");
-        }
     }
 
     public String getLocal() {
