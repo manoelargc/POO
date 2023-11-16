@@ -106,6 +106,10 @@ public class Foto extends Midia {
                 "Data: " + getData() + "\n";
 
     }
+
+    /**
+     * @return tipo de midia pra classificar as tabelas no app da interface do usuario
+     */
     @Override
     public String getTipo() {
         return "Foto";

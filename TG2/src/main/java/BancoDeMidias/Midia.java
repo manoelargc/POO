@@ -67,9 +67,6 @@ public abstract class Midia {
         return imageUrl;
     }
 
-    public String getTipo() {
-        return "Midia";
-    }
 
 
     /**
@@ -82,5 +79,13 @@ public abstract class Midia {
                 "Título: " + getTitulo() + "\n" +
                 "Descrição: " + getDescricao() + "\n" +
                 "Ano: " + getAno();
+    }
+
+
+    /**
+     * @return tipo de midia pra classificar as tabelas no app da interface do usuario
+     */
+    public String getTipo() {
+        return "Midia";
     }
 }

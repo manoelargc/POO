@@ -1,5 +1,13 @@
 package BancoDeMidias;
 
+
+/**
+ * A classe Multimidia é uma extensão da classe abstrata Midia e representa uma mídia multimídia no sistema.
+ * Contém informações específicas como gênero, idioma e duração.
+
+ * @author Manoela Resende
+ * @author Eduarda Sifuentes
+ */
 public class Multimidia extends Midia {
     //atributos
     private String genero;
@@ -8,13 +16,25 @@ public class Multimidia extends Midia {
     private int minutos;
     private int segundos;
 
+    /**
+     * Construtor da classe Multimidia.
+     *
+     * @param titulo O título da multimídia.
+     * @param genero O gênero da multimídia.
+     */
+
     public Multimidia(String titulo, String genero) {
         super();
         setTitulo(titulo);
         setGenero(genero);
     }
 
-    //metodos publicos
+
+    /**
+     * Obtém uma representação da duração da multimídia.
+     *
+     * @return Uma string representando a duração no formato adequado.
+     */
     public String getDuracao(){
         if (getHoras(horas) == 0 && getMinutos(minutos)>0){
             return getMinutos(minutos) + " min e " + getSegundos(segundos) + " segundos";
@@ -26,15 +46,7 @@ public class Multimidia extends Midia {
         }
     }
 
-    //metodos especiais
-    //constructor
-/*    public Multimidia(String genero, String idioma, int horas, int minutos, int segundos) {
-        this.genero = genero;
-        this.idioma = idioma;
-        this.horas = horas;
-        this.minutos = minutos;
-        this.segundos = segundos;
-    }*/
+
 
     //get e set
 
@@ -83,7 +95,13 @@ public class Multimidia extends Midia {
         this.segundos = segundos;
     }
 
-    //toString
+
+    /**
+     * Converte a instância da classe Multimidia para uma representação em String.
+     *
+     * @return Uma representação em String dos atributos da classe Multimidia.
+     */
+
     @Override
     public String toString() {
         return super.toString() + "\n" +
@@ -92,6 +110,9 @@ public class Multimidia extends Midia {
                 "Duração: " + getDuracao();
     }
 
+    /**
+     * @return tipo de midia pra classificar as tabelas no app da interface do usuario
+     */
     @Override
     public String getTipo() {
         return "Multimidia";

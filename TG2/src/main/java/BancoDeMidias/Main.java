@@ -3,6 +3,14 @@ package BancoDeMidias;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Classe principal que gerencia o catálogo de mídias e interage
+ * com o usuário via console
+ *
+ * @author Manoela Resende
+ * @author Eduarda Sifuentes
+ */
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -25,6 +33,10 @@ public class Main {
 
 
             switch (escolha) {
+
+                /**
+                 * Caso para cadastrar uma nova mídia.
+                 */
                 case "1":
                     System.out.println("Qual o tipo da mídia que você deseja inserir? (Foto, Filme, Musica)");
                     String tipo = scanner.nextLine();
@@ -59,9 +71,16 @@ public class Main {
                     }
                     break;
 
+                /**
+                 * Caso para exibir todas as mídias.
+                 */
                 case "2":
                     catalogo.mostra();
                     break;
+
+                /**
+                 * Caso para editar uma mídia existente.
+                 */
                 case "3":
                     System.out.print("Digite o título da mídia que você deseja editar: ");
                     String tituloEditar = scanner.nextLine();
@@ -71,30 +90,57 @@ public class Main {
                     String novoValor = scanner.nextLine();
                     catalogo.editar(tituloEditar, campoEditar,novoValor);
                     break;
+
+
+                /**
+                 * Caso para excluir uma mídia existente.
+                 */
                 case "4":
                     System.out.print("Digite o título da mídia que você deseja excluir: ");
                     String tituloExcluir = scanner.nextLine();
                     catalogo.delete(tituloExcluir);
                     break;
+
+
+                /**
+                 * Caso para consultar uma mídia por título.
+                 */
                 case "5":
                     System.out.print("Digite o título da mídia que você deseja consultar: ");
                     String titulo = scanner.nextLine();
                     catalogo.consultaPorTitulo(titulo);
                     break;
+
+                /**
+                 * Caso para consultar por data.
+                 */
                 case "6":
                     System.out.print("Digite a data que você deseja pesquisar: ");
                     String data = scanner.nextLine();
                     catalogo.consultaPorData(data);
                     break;
+
+                /**
+                 * Caso para pesquisar músicas e filmes por gênero.
+                 */
                 case "7":
                     System.out.print("Digite o gênero que você deseja pesquisar: ");
                     String genero = scanner.nextLine();
                     catalogo.consultaPorGenero(genero);
                     break;
+
+
+                /**
+                 * Caso para sair do programa.
+                 */
                 case "8":
                     System.out.println("Saindo...");
                     sair = true;
                     break;
+
+                /**
+                 * Caso padrão para uma escolha inválida.
+                 */
                 default:
                     System.out.println("Escolha inválida. Por favor, tente novamente.");
                     break;
