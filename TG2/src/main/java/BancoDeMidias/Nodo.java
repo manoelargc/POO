@@ -1,13 +1,29 @@
 package BancoDeMidias;
 
+/**
+ * Classe que representa um nó em uma lista encadeada.
+ *
+ * @param <TIPO> O tipo de valor armazenado no nó.
+ * 
+ * @author Manoela Resende
+ * @author Eduarda Sifuentes
+ */
+
 public class Nodo<TIPO> {
+    //ATRIBUTOS
     private TIPO valor;
     private Nodo<TIPO> proximo;
 
+    /**
+     * Construtor da classe Nodo.
+     *
+     * @param novoValor O novo valor a ser armazenado no nó.
+    */
     public Nodo(TIPO novoValor){
         this.valor = novoValor;
     }
 
+    //GETTERS E SETTERS 
     public TIPO getValor() {
         return valor;
     }

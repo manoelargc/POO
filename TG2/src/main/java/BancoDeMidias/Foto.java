@@ -3,13 +3,14 @@ package BancoDeMidias;
 import java.util.Arrays;
 
 /**
- * Classe de fotos que estende a classe Midia
- *
+ * Classe que representa uma foto, estendendo a classe Multimidia.
+ * 
  * @author Manoela Resende
  * @author Eduarda Sifuentes
  */
+
 public class Foto extends Midia {
-    // Atributos
+    //ATRIBUTOS
     private String fotografo;
     private String[] pessoas;
     private int numPessoas;
@@ -18,12 +19,10 @@ public class Foto extends Midia {
     private int mes;
 
     /**
-     * Construtor da classe Foto.
-     *
-     * @param titulo título da foto
-     * @param dia    dia em que a foto foi tirada
-     * @param mes    mês em que a foto foi tirada
-     * @param ano    ano em que a foto foi tirada
+     * @param titulo: título da foto
+     * @param dia: dia em que a foto foi tirada
+     * @param mes: mês em que a foto foi tirada
+     * @param ano: ano em que a foto foi tirada
      */
     public Foto(String titulo, int dia, int mes, int ano) {
         super(titulo, ano);
@@ -31,19 +30,16 @@ public class Foto extends Midia {
         this.setMes(mes);
     }
 
-    // Métodos públicos
-
     /**
-     * Método para obter a getData em que a foto foi tirada
-     *
-     * @return A getData em que a foto foi tirada
-     */
+     * Método para obter a getData em que a foto foi tirada e
+     * @return a getData em que a foto foi tirada
+    */
+
     public String getData() {
         return getDia() + "/" + getMes() + "/" + getAno();
     }
 
-    // Getters e setters
-
+    //GETTERS E SETTERS
     public String getFotografo() {
         return fotografo;
     }
@@ -93,7 +89,6 @@ public class Foto extends Midia {
 
     /**
      * Método toString para representação em String da classe Foto
-     *
      * @return Uma representação em String da classe Foto, juntando
      * com as informações da classe midia
      */

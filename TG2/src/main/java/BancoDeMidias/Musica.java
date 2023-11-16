@@ -2,19 +2,31 @@ package BancoDeMidias;
 
 import java.util.Arrays;
 
+
+/**
+ * Classe que representa uma música, estendendo a classe Multimidia.
+ *
+ * @author Manoela Resende
+ * @author Eduarda Sifuentes
+ */
+
 public class Musica extends Multimidia {
-    //atributos
+    //ATRIBUTOS
     private String[] compositores;
     private int num;
     private String[] interpretes;
 
+    /**
+     * Construtor da classe Musica.
+     *
+     * @param titulo Título da música.
+     * @param genero Gênero da música.
+    */
     public Musica(String titulo, String genero) {
         super(titulo, genero);
     }
 
-    //metodos especiais
-    //get e set
-
+    //GETTERS E SETTERS
     public String[] getCompositores() {
         return compositores;
     }
@@ -33,7 +45,12 @@ public class Musica extends Multimidia {
         this.num= interpretes.length;
     }
 
-    //tostring
+    /**
+     * Método toString para representação em String da classe Musica
+     * 
+     * @return Uma representação em String da classe Musica, juntando
+     * com as informações da classe midia
+     */
     @Override
     public String toString() {
         return super.toString() + "\n" +

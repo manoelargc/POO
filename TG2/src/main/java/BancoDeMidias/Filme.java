@@ -1,20 +1,30 @@
 package BancoDeMidias;
 
 import java.util.Arrays;
+/**
+ * Classe que representa um filme, estendendo a classe Multimidia.
+ * 
+ * @author Manoela Resende
+ * @author Eduarda Sifuentes
+ */
 
 public class Filme extends Multimidia {
-    //atributos
+    //ATRIBUTOS
     private String diretor;
     private int num;
     private String[] atores;
+
+
+    /**
+    * @param titulo: título do filme
+    * @param genero: gênero do filme
+    */
 
     public Filme(String titulo, String genero) {
         super(titulo, genero);
     }
 
-    //metodos especiais
-    //get e set
-
+    //GETTERS E SETTERS
     public String getDiretor() {
         return diretor;
     }
@@ -32,7 +42,10 @@ public class Filme extends Multimidia {
         this.num= atores.length;
     }
 
-    //tostring
+     /**
+     * @return Uma representação em String da classe filme, juntando
+     * com as informações da classe midia
+     */
     @Override
     public String toString() {
         return super.toString() + "\n" +

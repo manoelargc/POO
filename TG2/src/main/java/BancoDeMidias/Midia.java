@@ -1,31 +1,30 @@
 package BancoDeMidias;
 /**
- * Classe abstrata Midia que serve como base para outras classes de mídia, classe mãe
- *
+ * A classe abstrata Midia serve como uma classe base para outros tipos de mídia no sistema.
+ * 
  * @author Manoela Resende
  * @author Eduarda Sifuentes
  */
 public abstract class Midia {
-
-    // Atributos
+     //ATRIBUTOS
     private String titulo;
     private String descricao;
     private int ano;
     private String imageUrl;
 
     /**
-     * Construtor padrão/vazio da classe Midia
-     */
+    * Construtor padrão/vazio da classe Midia.
+    */
     public Midia() {
     }
 
 
     /**
-     * Construtor da classe Midia.
-     *
-     * @param titulo o título da mídia
-     * @param ano ano da mídia
-     */
+    * Construtor da classe Midia.
+    *
+    * @param titulo O título da mídia.
+    * @param ano    O ano da mídia.
+    */
     public Midia(String titulo, int ano) {
         this.titulo = titulo;
         this.ano = ano;
@@ -33,8 +32,7 @@ public abstract class Midia {
     }
 
 
-    // Getters e setters
-
+    //GETTERS E SETTERS
     public String getTitulo() {
         return titulo;
     }
@@ -59,19 +57,29 @@ public abstract class Midia {
         this.ano = ano;
     }
 
+    /**
+    * Define a URL da imagem da mídia.
+    *
+    * @param imageUrl A URL da imagem.
+    */
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
+    /**
+    * Obtém a URL da imagem da mídia.
+    *
+    * @return A URL da imagem.
+    */
     public String getImageUrl() {
         return imageUrl;
     }
 
     /**
-     * Método toString para representação em String da classe Midia
-     *
-     * @return Uma representação pra retornar em String os atributos de Midia
-     */
+    * Converte a instância da classe Midia para uma representação em String.
+    *
+    * @return Uma representação em String dos atributos da classe Midia.
+    */
     public String toString() {
         return "\nImagem: " + getImageUrl() + "\n" +
                 "Título: " + getTitulo() + "\n" +

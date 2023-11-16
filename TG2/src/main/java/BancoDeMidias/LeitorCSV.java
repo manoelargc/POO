@@ -6,23 +6,37 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Classe responsável por ler um arquivo CSV e criar uma lista encadeada de mídias com base nas informações do arquivo.
+ * 
+ * @author Manoela Resende
+ * @author Eduarda Sifuentes
+*/
 
 public class LeitorCSV{
+        /**
+        * Lê um arquivo CSV e cria uma lista encadeada de mídias com base nas informações do arquivo.
+        *
+        * @param nomeArquivo O caminho do arquivo CSV a ser lido.
+        * @return Uma lista encadeada contendo as mídias lidas do arquivo.
+        */
 
         public ListaEncadeada<Midia> lerArquivo(String nomeArquivo) {
             ListaEncadeada<Midia> midias = new ListaEncadeada<>();
 
             try {
+                // Utiliza um BufferedReader para ler o conteúdo do arquivo linha por linha.
                 File file = new File(nomeArquivo);
                 BufferedReader br = new BufferedReader(new FileReader(file));
                 String linha;
+                //Lê cada linha do arquivo e cria objetos de mídia com base nos campos.
                 while ((linha = br.readLine()) != null) {
                     String[] campos = linha.split("#");
 
                     // O primeiro campo é o tipo de mídia
                     String tipo = campos[0];
 
-                    // Cria um novo objeto de mídia com base no tipo
+                    //Cria um novo objeto de mídia com base no tipo
                     if (tipo.equals("Foto")) {
                         midias.add(criarFoto(campos));
                     } else if (tipo.equals("Filme")) {
@@ -51,6 +65,12 @@ public class LeitorCSV{
             return midias;
         }
 
+     /**
+     * Cria e inicializa um objeto da classe Foto com base nos campos fornecidos.
+     *
+     * @param campos Os campos necessários para criar a Foto.
+     * @return Uma instância da classe Foto.
+     */
     private Foto criarFoto(String[] campos) {
         Foto foto = new Foto(campos[1], Integer.parseInt(campos[7]), Integer.parseInt(campos[8]), Integer.parseInt(campos[3]));
         foto.setDescricao(campos[2]);
@@ -67,6 +87,12 @@ public class LeitorCSV{
         return foto;
     }
 
+    /**
+     * Cria e inicializa um objeto da classe Filme com base nos campos fornecidos.
+     *
+     * @param campos Os campos necessários para criar o Filme.
+     * @return Uma instância da classe Filme.
+     */
     private Filme criarFilme(String[] campos) {
         Filme filme = new Filme(campos[1], campos[4]);
         filme.setDescricao(campos[2]);
@@ -80,6 +106,12 @@ public class LeitorCSV{
         return filme;
     }
 
+    /**
+     * Cria e inicializa um objeto da classe Musica com base nos campos fornecidos.
+     *
+     * @param campos Os campos necessários para criar a Musica.
+     * @return Uma instância da classe Musica.
+     */ 
     private Musica criarMusica(String[] campos) {
         Musica musica = new Musica(campos[1], campos[4]);
         musica.setDescricao(campos[2]);

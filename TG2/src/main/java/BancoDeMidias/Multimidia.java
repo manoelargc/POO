@@ -1,20 +1,40 @@
 package BancoDeMidias;
+/**
+* A classe Multimidia é uma extensão da classe abstrata Midia e representa uma mídia multimídia no sistema.
+* Contém informações específicas como gênero, idioma e duração.
+
+* @author Manoela Resende
+* @author Eduarda Sifuentes
+*/
 
 public class Multimidia extends Midia {
-    //atributos
+    //ATRIBUTOS
     private String genero;
     private String idioma;
     private int horas;
     private int minutos;
     private int segundos;
 
+
+    /**
+     * Construtor da classe Multimidia.
+     *
+     * @param titulo O título da multimídia.
+     * @param genero O gênero da multimídia.
+    */
     public Multimidia(String titulo, String genero) {
         super();
         setTitulo(titulo);
         setGenero(genero);
     }
 
-    //metodos publicos
+    //GETTERS E SETTERS 
+
+     /**
+     * Obtém uma representação da duração da multimídia.
+     *
+     * @return Uma string representando a duração no formato adequado.
+     */
     public String getDuracao(){
         if (getHoras(horas) == 0 && getMinutos(minutos)>0){
             return getMinutos(minutos) + " min e " + getSegundos(segundos) + " segundos";
@@ -36,13 +56,15 @@ public class Multimidia extends Midia {
         this.segundos = segundos;
     }*/
 
-    //get e set
 
+ 
     public void setDuracao(int horas, int minutos, int segundos){
         this.setHoras(horas);
         this.setMinutos(minutos);
         this.setSegundos(segundos);
     }
+
+
     public String getGenero() {
         return genero;
     }
@@ -83,7 +105,13 @@ public class Multimidia extends Midia {
         this.segundos = segundos;
     }
 
-    //toString
+    
+    /**
+    * Converte a instância da classe Multimidia para uma representação em String.
+    *
+    * @return Uma representação em String dos atributos da classe Multimidia.
+    */
+
     @Override
     public String toString() {
         return super.toString() + "\n" +
