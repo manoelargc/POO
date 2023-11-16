@@ -108,52 +108,23 @@ public class GUI extends JFrame {
         panel.add(filmesButton);
         panel.add(musicasButton);
 
+        // Create a JComboBox for media type selection
+        String[] tipos = {"Foto", "Filme", "Musica"};
+        JComboBox<String> tipoComboBox = new JComboBox<>(tipos);
+        //panel.add(tipoComboBox);
+
         cadastrarButton.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Define the media types
-                String[] tipos = {"Foto", "Filme", "Musica"};
+                // Obtém o tipo selecionado do JComboBox
+                String tipo = (String) tipoComboBox.getSelectedItem();
 
-                // Show a dropdown for media type selection
-                String tipo = (String) JOptionPane.showInputDialog(
-                        null,
-                        "Choose media type:",
-                        "Media Type",
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        tipos,
-                        tipos[0] // Default selection
-                );
-
-                // Check if the user canceled the selection
-                if (tipo != null) {
-                    String dados = JOptionPane.showInputDialog("Digite os atributos de midia no formato: Título#Descrição#Ano#Fotografo#Pessoas#Local#Data#URL");
-
-                    // Prompt the user for media attributes
-/*                    if (tipo == "Foto") {
-                        String dados = JOptionPane.showInputDialog("Digite os atributos de midia no formato: Título#Descrição#Ano#Fotografo#Pessoas#Local#Data#URL");
-                    } else if (tipo == "Filme") {
-                        String dados = JOptionPane.showInputDialog("Digite os atributos de midia no formato: Título#Descrição#Ano#Genero#Idioma#Duracao#Diretor#Atores#URL");
-
-                    } else if (tipo == "Musica") {
-                        String dados = JOptionPane.showInputDialog("Digite os atributos de midia no formato: Título#Descrição#Ano#Genero#Idioma#Duracao#Compositores#Interpretes#URL");
-
-                    }*/
-                    // Check if the user canceled the input
-                    if (dados != null) {
-                        // Append tipo to the beginning of dados
-                        String dadosCompleto = tipo + "#" + dados;
-
-                        cadastrarMidia(dadosCompleto);
-                    } else {
-                        System.out.println("User canceled data input.");
-                    }
-                } else {
-                    System.out.println("User canceled media type selection.");
-                }
+                // Chama o método cadastrarMidia, passando o tipo selecionado
+                cadastrarMidia(tipo);
             }
-        });
 
+        });
         sairButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -179,11 +150,65 @@ public class GUI extends JFrame {
         setVisible(true);
     }
 
-    /**
+    // Method to show input dialog based on media type
+    private String showInputDialogForMediaType(String tipo) {
+        String dados = "";
+
+        switch (tipo) {
+            case "Foto":
+                dados = JOptionPane.showInputDialog("Digite os atributos de mídia no formato: Título#Descrição#Ano#Fotógrafo#Pessoas#Local#Data#URL");
+                break;
+            case "Filme":
+                dados = JOptionPane.showInputDialog("Digite os atributos de mídia no formato: Título#Descrição#Ano#Gênero#Idioma#Duração#Diretor#Atores#URL");
+                break;
+            case "Musica":
+                dados = JOptionPane.showInputDialog("Digite os atributos de mídia no formato: Título#Descrição#Ano#Gênero#Idioma#Duração#Compositores#Intérpretes#URL");
+                break;
+            default:
+                System.err.println("Tipo de mídia não reconhecido: " + tipo);
+        }
+
+        return dados;
+    }
+    // Método para cadastrar a mídia com base no tipo e dados fornecidos
+    private void cadastrarMidia(String tipo) {
+        // Obter os dados do usuário com base no tipo de mídia
+
+        String[] tipos = {"Foto", "Filme", "Musica"};
+        JComboBox<String> tipoComboBox = new JComboBox<>(tipos);
+        int result = JOptionPane.showConfirmDialog(this, tipoComboBox, "Selecione o Tipo de Mídia", JOptionPane.OK_CANCEL_OPTION);
+        // Verifique se o usuário pressionou "OK"
+        if (result == JOptionPane.OK_OPTION) {
+            // Obtenha o tipo de mídia selecionado
+            String tipoSelecionado = (String) tipoComboBox.getSelectedItem();
+
+            // Exiba um JOptionPane para obter os atributos da mídia com base no tipo selecionado
+            String dados = showInputDialogForMediaType(tipoSelecionado);
+
+            // Verifique se o usuário não cancelou a entrada
+            if (dados != null) {
+                // Processar a entrada e inserir a mídia no catálogo
+                String linha = tipoSelecionado + "#" + dados;
+                String[] campos = linha.split("#");
+
+                if (tipoSelecionado.equalsIgnoreCase("Foto")) {
+                    Foto foto = LeitorCSV.criarFoto(campos);
+                    catalogo.insere(foto);
+                } else if (tipoSelecionado.equalsIgnoreCase("Filme")) {
+                    Filme filme = LeitorCSV.criarFilme(campos);
+                    catalogo.insere(filme);
+                } else if (tipoSelecionado.equalsIgnoreCase("Musica")) {
+                    Musica musica = LeitorCSV.criarMusica(campos);
+                    catalogo.insere(musica);
+                }
+            }
+        }
+    }
+    /*  *//**
      * Método responsável por cadastrar uma nova mídia no catálogo.
      *
      * @param dados Os dados da nova mídia a serem cadastrados.
-     */
+     *//*
     private void cadastrarMidia(String dados) {
         try {
             if (dados != null) {
@@ -210,7 +235,7 @@ public class GUI extends JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar mídia. Verifique os dados e tente novamente.");
         }
     }
-
+*/
     private boolean cabecalhoAdicionado = false; // Adicione esta variável de instância
 
     /**
