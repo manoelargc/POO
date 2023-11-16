@@ -1,5 +1,14 @@
 package BancoDeMidias;
 
+/**
+ *
+ * Classe usada para testar as funcionalidades durante o desenvolvimento
+ * do codigo e verificar possiveis erros ou ter ideias de novas maneiras
+ * de implementacao, além de obter um maior aprendizado testando
+ *
+ * @author Manoela Resende
+ * @author Eduarda Sifuentes
+ */
 public class testes {
     public static void main(String[] args) {
 /*            Foto foto = new Foto();
