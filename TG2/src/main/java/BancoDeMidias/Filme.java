@@ -40,4 +40,9 @@ public class Filme extends Multimidia {
                 "Atores Principais: " + Arrays.toString(getAtores());
     }
 
+    @Override
+    public String getTipo() {
+        return "Filme";
+    }
+
 }

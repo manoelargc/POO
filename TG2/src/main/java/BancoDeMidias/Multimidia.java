@@ -92,4 +92,9 @@ public class Multimidia extends Midia {
                 "Duração: " + getDuracao();
     }
 
+    @Override
+    public String getTipo() {
+        return "Multimidia";
+    }
+
 }

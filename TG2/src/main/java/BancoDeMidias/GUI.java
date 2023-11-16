@@ -1,6 +1,9 @@
 package BancoDeMidias;
 
+import javafx.scene.Node;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +11,7 @@ import java.util.Arrays;
 
 public class GUI extends JFrame {
     private final Catalogo catalogo;
+    private final DefaultTableModel tableModel;
 
     public GUI() {
         catalogo = new Catalogo();
@@ -16,13 +20,57 @@ public class GUI extends JFrame {
         setTitle("Banco de Mídias");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
+
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JButton cadastrarButton = new JButton("Cadastrar nova mídia");
-        JButton exibirButton = new JButton("Exibir mídias");
+        //JButton exibirButton = new JButton("Exibir mídias");
         JButton sairButton = new JButton("Sair");
+
+        // Adiciona os botões de filtro
+        JButton todosButton = new JButton("Mostrar Todas");
+        JButton fotosButton = new JButton("Mostrar Fotos");
+        JButton filmesButton = new JButton("Mostrar Filmes");
+        JButton musicasButton = new JButton("Mostrar Músicas");
+
+        todosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exibirMidias("Todos");
+            }
+        });
+
+        fotosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exibirMidias("Foto");
+            }
+        });
+
+        filmesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exibirMidias("Filme");
+            }
+        });
+
+        musicasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exibirMidias("Musica");
+            }
+        });
+
+        panel.add(todosButton);
+        panel.add(fotosButton);
+        panel.add(filmesButton);
+        panel.add(musicasButton);
+
+
+
 
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
@@ -31,13 +79,14 @@ public class GUI extends JFrame {
             }
         });
 
-        exibirButton.addActionListener(new ActionListener() {
+ /*       exibirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                exibirMidias();
+                String Todos = null ;
+                exibirMidias(Todos);
             }
         });
-
+*/
         sairButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,13 +95,29 @@ public class GUI extends JFrame {
         });
 
         panel.add(cadastrarButton);
-        panel.add(exibirButton);
+        //panel.add(exibirButton);
         panel.add(sairButton);
 
+        // Configuração da tabela
+        tableModel = new DefaultTableModel();
+        JTable table = new JTable(tableModel);
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);  // Ajusta automaticamente a largura das colunas
+        JScrollPane scrollPane = new JScrollPane(table);
+        panel.add(scrollPane);
+
+// Adiciona cabeçalho para a tabela
+        tableModel.addColumn("Tipo");
+        tableModel.addColumn("Descrição");
+        tableModel.addColumn("Atributo 1");
+        tableModel.addColumn("Atributo 2");
+        tableModel.addColumn("Atributo 3");
+
+// Restante do código
         setContentPane(panel);
-        setSize(300, 200);
+        setSize(500, 300);
         setLocationRelativeTo(null);
         setVisible(true);
+
     }
 
     private void cadastrarMidia() {
@@ -112,28 +177,40 @@ public class GUI extends JFrame {
         }
     }
 
-    private void exibirMidias() {
-        JFrame exibirFrame = new JFrame("Exibir Mídias");
-        exibirFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        exibirFrame.setSize(400, 300);
-        exibirFrame.setLocationRelativeTo(this);
+    private void exibirMidias(String tipoFiltro) {
+        // Limpa a tabela antes de exibir as novas mídias
+        tableModel.setRowCount(0);
 
-        JTextArea exibirTextArea = new JTextArea();
-        exibirTextArea.setEditable(false);
-
-
-        // Adiciona as informações das mídias à JTextArea
+        // Adiciona as informações das mídias à tabela, considerando o filtro
         for (int i = 0; i < catalogo.getMidias().getTamanho(); i++) {
-            Midia midia = (Midia) catalogo.getMidias().get(i).getValor();
-            exibirTextArea.append(midia.toString() + "\n");
+            Nodo node = catalogo.getMidias().get(i);
+            if (node != null) {
+                Midia midia = (Midia) node.getValor();
+
+                // Adiciona à tabela apenas se o tipo corresponder ao filtro
+                if (tipoFiltro.equals("Todos") || midia.getTipo().equalsIgnoreCase(tipoFiltro)) {
+                    adicionarMidiaNaTabela(midia);
+                }
+            }
         }
-
-        JScrollPane scrollPane = new JScrollPane(exibirTextArea);
-        exibirFrame.add(scrollPane);
-
-        exibirFrame.setVisible(true);
     }
 
+    private void adicionarMidiaNaTabela(Midia midia) {
+        Object[] rowData;
+
+        if (midia instanceof Foto) {
+            rowData = new Object[]{midia.getTipo(), midia.getDescricao(), ((Foto) midia).getFotografo(), ((Foto) midia).getLocal(), ((Foto) midia).getImageUrl()};
+        } else if (midia instanceof Filme) {
+            rowData = new Object[]{midia.getTipo(), midia.getDescricao(), ((Filme) midia).getDiretor(), Arrays.toString(((Filme) midia).getAtores()), ((Filme) midia).getImageUrl()};
+        } else if (midia instanceof Musica) {
+            rowData = new Object[]{midia.getTipo(), midia.getDescricao(), Arrays.toString(((Musica) midia).getCompositores()), Arrays.toString(((Musica) midia).getInterpretes()), ((Musica) midia).getImageUrl()};
+        } else {
+            // Se houver um novo tipo de mídia, adicione aqui
+            return;
+        }
+
+        tableModel.addRow(rowData);
+    }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {

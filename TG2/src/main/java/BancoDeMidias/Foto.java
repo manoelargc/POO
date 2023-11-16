@@ -104,6 +104,11 @@ public class Foto extends Midia {
                 "Pessoas: " + Arrays.toString(getPessoas()) + "\n" +
                 "Local: " + getLocal() + "\n" +
                 "Data: " + getData() + "\n";
+
+    }
+    @Override
+    public String getTipo() {
+        return "Foto";
     }
 }
 

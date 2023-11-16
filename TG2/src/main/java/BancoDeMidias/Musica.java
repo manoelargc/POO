@@ -40,5 +40,10 @@ public class Musica extends Multimidia {
                 "Compositores: " + Arrays.toString(getCompositores()) + "\n" +
                 "Intérpretes: " + Arrays.toString(getInterpretes()) + "\n";
     }
+
+    @Override
+    public String getTipo() {
+        return "Musica";
+    }
 }
 

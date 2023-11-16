@@ -67,6 +67,11 @@ public abstract class Midia {
         return imageUrl;
     }
 
+    public String getTipo() {
+        return "Midia";
+    }
+
+
     /**
      * Método toString para representação em String da classe Midia
      *
