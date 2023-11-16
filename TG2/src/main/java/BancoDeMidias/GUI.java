@@ -46,33 +46,35 @@ public class GUI extends JFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
+        // Painel para os botões
+        JPanel botoesPanel = new JPanel(new FlowLayout());
+        panel.add(botoesPanel, BorderLayout.NORTH);
+
+        JButton todosButton = new JButton("Mostrar Todas");
+        JButton fotosButton = new JButton("Mostrar Fotos");
+        JButton filmesButton = new JButton("Mostrar Filmes");
+        JButton musicasButton = new JButton("Mostrar Músicas");
+        JButton cadastrarButton = new JButton("Cadastrar nova mídia");
+        JButton sairButton = new JButton("Sair");
+        JButton editarButton = new JButton("Editar Mídia");
+        JButton excluirButton = new JButton("Excluir Mídia");
+        JButton consultarPorTituloButton = new JButton("Consultar por Título");
+
+        //botoes
+        botoesPanel.add(todosButton);
+        botoesPanel.add(fotosButton);
+        botoesPanel.add(filmesButton);
+        botoesPanel.add(musicasButton);
+        botoesPanel.add(cadastrarButton);
+        botoesPanel.add(editarButton);
+        botoesPanel.add(excluirButton);
+        botoesPanel.add(consultarPorTituloButton);
+        botoesPanel.add(sairButton);
+
 
         /**
          * Botoes e acoes associadas
          */
-        JButton cadastrarButton = new JButton("Cadastrar nova mídia");
-        cadastrarButton.setBackground(Color.white);
-        cadastrarButton.setForeground(Color.black);
-
-        JButton sairButton = new JButton("Sair");
-        sairButton.setBackground(Color.white);
-        sairButton.setForeground(Color.black);
-
-        JButton todosButton = new JButton("Mostrar Todas");
-        todosButton.setBackground(Color.white);
-        todosButton.setForeground(Color.black);
-
-        JButton fotosButton = new JButton("Mostrar Fotos");
-        fotosButton.setBackground(Color.white);
-        fotosButton.setForeground(Color.BLACK);
-
-        JButton filmesButton = new JButton("Mostrar Filmes");
-        filmesButton.setBackground(Color.white);
-        filmesButton.setForeground(Color.BLACK);
-
-        JButton musicasButton = new JButton("Mostrar Músicas");
-        musicasButton.setBackground(Color.white);
-        musicasButton.setForeground(Color.BLACK);
 
         todosButton.addActionListener(new ActionListener() {
             @Override
@@ -95,6 +97,7 @@ public class GUI extends JFrame {
             }
         });
 
+
         musicasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -103,10 +106,7 @@ public class GUI extends JFrame {
         });
 
         // Adição dos botões ao painel
-        panel.add(todosButton);
-        panel.add(fotosButton);
-        panel.add(filmesButton);
-        panel.add(musicasButton);
+
 
         // Create a JComboBox for media type selection
         String[] tipos = {"Foto", "Filme", "Musica"};
@@ -125,6 +125,57 @@ public class GUI extends JFrame {
             }
 
         });
+
+        // Botão para a opção de editar mídia existente
+        editarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Interface para obter dados do usuário
+                String tituloEditar = JOptionPane.showInputDialog("Digite o título da mídia que você deseja editar:");
+                String campoEditar = JOptionPane.showInputDialog("Digite o campo da mídia que você deseja editar:");
+                String novoValor = JOptionPane.showInputDialog("Digite o novo valor do campo " + campoEditar + ":");
+
+                // Lógica para editar mídia
+                catalogo.editar(tituloEditar, campoEditar, novoValor);
+
+                // Adapte conforme necessário para interagir com a GUI
+            }
+        });
+
+        // Botão para a opção de excluir mídia existente
+        excluirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Interface para obter dados do usuário
+                String tituloExcluir = JOptionPane.showInputDialog("Digite o título da mídia que você deseja excluir:");
+
+                // Lógica para excluir mídia
+                catalogo.delete(tituloExcluir);
+
+                // Adapte conforme necessário para interagir com a GUI
+            }
+        });
+
+// Botão para a opção de consultar mídia por título
+        consultarPorTituloButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Interface para obter dados do usuário
+                String tituloConsulta = JOptionPane.showInputDialog("Digite o título da mídia que você deseja consultar:");
+
+                // Lógica para consultar mídia por título
+                Midia midiaConsultada = catalogo.consultaPorTitulo(tituloConsulta);
+
+                if (midiaConsultada != null) {
+                    // Exibir informações da mídia em uma nova janela
+                    exibirInformacoesMidia(midiaConsultada);
+                } else {
+                    JOptionPane.showMessageDialog(GUI.this, "Mídia não encontrada.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+
         sairButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -132,20 +183,24 @@ public class GUI extends JFrame {
             }
         });
 
-        panel.add(cadastrarButton);
-        panel.add(sairButton);
 
+
+        // Cria e configura a tabela
         tableModel = new DefaultTableModel();
         JTable table = new JTable(tableModel);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         JScrollPane scrollPane = new JScrollPane(table);
+        panel.add(scrollPane, BorderLayout.CENTER);
+
+
         // Adição do cabeçalho e tabela ao painel
         panel.add(scrollPane);
 
 
+
         // Configuração da janela principal
         setContentPane(panel);
-        setSize(500, 300);
+        setSize(1050, 500);
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -330,6 +385,44 @@ public class GUI extends JFrame {
         }
 
         tableModel.addRow(rowData);
+    }
+
+    private void exibirInformacoesMidia(Midia midia) {
+        StringBuilder informacoes = new StringBuilder();
+        informacoes.append("Tipo: ").append(midia.getTipo()).append("\n");
+        informacoes.append("Título: ").append(midia.getTitulo()).append("\n");
+        informacoes.append("Descrição: ").append(midia.getDescricao()).append("\n");
+        informacoes.append("Ano: ").append(midia.getAno()).append("\n");
+
+        if (midia instanceof Foto) {
+            Foto foto = (Foto) midia;
+            informacoes.append("Fotógrafo: ").append(foto.getFotografo()).append("\n");
+            informacoes.append("Pessoas: ").append(Arrays.toString(foto.getPessoas())).append("\n");
+            informacoes.append("Local: ").append(foto.getLocal()).append("\n");
+            informacoes.append("Data: ").append(foto.getData()).append("\n");
+            informacoes.append("URL: ").append(foto.getImageUrl()).append("\n");
+        } else if (midia instanceof Filme) {
+            Filme filme = (Filme) midia;
+            informacoes.append("Gênero: ").append(filme.getGenero()).append("\n");
+            informacoes.append("Idioma: ").append(filme.getIdioma()).append("\n");
+            informacoes.append("Duração: ").append(filme.getDuracao()).append("\n");
+            informacoes.append("Diretor: ").append(filme.getDiretor()).append("\n");
+            informacoes.append("Atores: ").append(Arrays.toString(filme.getAtores())).append("\n");
+            informacoes.append("URL: ").append(filme.getImageUrl()).append("\n");
+        } else if (midia instanceof Musica) {
+            Musica musica = (Musica) midia;
+            informacoes.append("Gênero: ").append(musica.getGenero()).append("\n");
+            informacoes.append("Idioma: ").append(musica.getIdioma()).append("\n");
+            informacoes.append("Duração: ").append(musica.getDuracao()).append("\n");
+            informacoes.append("Compositores: ").append(Arrays.toString(musica.getCompositores())).append("\n");
+            informacoes.append("Intérpretes: ").append(Arrays.toString(musica.getInterpretes())).append("\n");
+            informacoes.append("URL: ").append(musica.getImageUrl()).append("\n");
+        }
+
+        JTextArea textArea = new JTextArea(informacoes.toString());
+        textArea.setEditable(false);
+
+        JOptionPane.showMessageDialog(this, new JScrollPane(textArea), "Informações da Mídia", JOptionPane.PLAIN_MESSAGE);
     }
 
 
