@@ -22,21 +22,35 @@ public class Main {
             System.out.println("8. Sair");
             System.out.print("Digite sua escolha: ");
             String escolha = scanner.nextLine();
+
+
             switch (escolha) {
                 case "1":
                     System.out.println("Qual o tipo da mídia que você deseja inserir? (Foto, Filme, Musica)");
                     String tipo = scanner.nextLine();
+
+                    System.out.print("---------------------------------------------------------------------------------------------\n" +
+                            "Foto:\n" +
+                            "Titulo#Descricao#Ano#Fotografo#Pessoas#Local#Dia#Mes#URL\n\n" +
+                            "Filme:\n" +
+                            "Título#Descricao#Ano#Genero#Idioma#Horas#Minutos#Segundos#Diretor#Atores#URL\n\n" +
+                            "Musica:\n" +
+                            "Título#Descricao#Ano#Genero#Idioma#Horas#Minutos#Segundos#Compositores#Interpretes#URL\n\n" +
+                            "\n" +
+                            "**obs: pessoas, compositores e interpretes, se forem mais de 1, colocar ';'\n" +
+                            "\n" +
+                            "---------------------------------------------------------------------------------------------" +
+                            "\n");
+
                     System.out.println("Digite os campos da mídia separados por #:");
-                    //String[] campos = scanner.nextLine().split(",");
+
                     String linha = tipo+"#"+scanner.nextLine();
                     String[] campos = linha.split("#");
-                    //campos[0] = tipo;
-                    System.out.println("campos: " + Arrays.toString(campos));
+
                     if (tipo.equalsIgnoreCase("Foto")) {
                         Foto foto = LeitorCSV.criarFoto(campos);
                         catalogo.insere(foto);
                     } else if (tipo.equalsIgnoreCase("Filme")) {
-                        System.out.println("Título#Descricao#AnoLançamento#Gênero#Idioma#Horas#Minutos#Segundos#Diretor#Elenco#URL Imagem");
                         Filme filme = LeitorCSV.criarFilme(campos);
                         catalogo.insere(filme);
                     } else if (tipo.equalsIgnoreCase("Musica")) {
@@ -66,6 +80,7 @@ public class Main {
                     System.out.print("Digite o título da mídia que você deseja consultar: ");
                     String titulo = scanner.nextLine();
                     catalogo.consultaPorTitulo(titulo);
+                    break;
                 case "6":
                     System.out.print("Digite a data que você deseja pesquisar: ");
                     String data = scanner.nextLine();

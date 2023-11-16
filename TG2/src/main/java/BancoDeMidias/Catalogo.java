@@ -11,6 +11,15 @@ public class Catalogo implements ICatalogo {
         midias = new ListaEncadeada<>();
     }
 
+
+
+
+    public ListaEncadeada<Midia> getMidias() {
+        return (ListaEncadeada<Midia>) midias;
+    }
+
+
+
     @Override
     public void carregaDados(String path) {
         LeitorCSV leitor = new LeitorCSV();
