@@ -111,8 +111,46 @@ public class GUI extends JFrame {
         cadastrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String dados = null;
-                cadastrarMidia(dados);
+                // Define the media types
+                String[] tipos = {"Foto", "Filme", "Musica"};
+
+                // Show a dropdown for media type selection
+                String tipo = (String) JOptionPane.showInputDialog(
+                        null,
+                        "Choose media type:",
+                        "Media Type",
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        tipos,
+                        tipos[0] // Default selection
+                );
+
+                // Check if the user canceled the selection
+                if (tipo != null) {
+                    String dados = JOptionPane.showInputDialog("Digite os atributos de midia no formato: Título#Descrição#Ano#Fotografo#Pessoas#Local#Data#URL");
+
+                    // Prompt the user for media attributes
+/*                    if (tipo == "Foto") {
+                        String dados = JOptionPane.showInputDialog("Digite os atributos de midia no formato: Título#Descrição#Ano#Fotografo#Pessoas#Local#Data#URL");
+                    } else if (tipo == "Filme") {
+                        String dados = JOptionPane.showInputDialog("Digite os atributos de midia no formato: Título#Descrição#Ano#Genero#Idioma#Duracao#Diretor#Atores#URL");
+
+                    } else if (tipo == "Musica") {
+                        String dados = JOptionPane.showInputDialog("Digite os atributos de midia no formato: Título#Descrição#Ano#Genero#Idioma#Duracao#Compositores#Interpretes#URL");
+
+                    }*/
+                    // Check if the user canceled the input
+                    if (dados != null) {
+                        // Append tipo to the beginning of dados
+                        String dadosCompleto = tipo + "#" + dados;
+
+                        cadastrarMidia(dadosCompleto);
+                    } else {
+                        System.out.println("User canceled data input.");
+                    }
+                } else {
+                    System.out.println("User canceled media type selection.");
+                }
             }
         });
 
@@ -148,20 +186,24 @@ public class GUI extends JFrame {
      */
     private void cadastrarMidia(String dados) {
         try {
-            String[] campos = dados.split("#");
+            if (dados != null) {
+                String[] campos = dados.split("#");
 
-            String tipo = campos[0];
-            if (tipo.equalsIgnoreCase("Foto")) {
-                Foto foto = LeitorCSV.criarFoto(Arrays.copyOfRange(campos, 1, campos.length));
-                catalogo.insere(foto);
-            } else if (tipo.equalsIgnoreCase("Filme")) {
-                Filme filme = LeitorCSV.criarFilme(Arrays.copyOfRange(campos, 1, campos.length));
-                catalogo.insere(filme);
-            } else if (tipo.equalsIgnoreCase("Musica")) {
-                Musica musica = LeitorCSV.criarMusica(Arrays.copyOfRange(campos, 1, campos.length));
-                catalogo.insere(musica);
+                String tipo = campos[0];
+                if (tipo.equalsIgnoreCase("Foto")) {
+                    Foto foto = LeitorCSV.criarFoto(Arrays.copyOfRange(campos, 1, campos.length));
+                    catalogo.insere(foto);
+                } else if (tipo.equalsIgnoreCase("Filme")) {
+                    Filme filme = LeitorCSV.criarFilme(Arrays.copyOfRange(campos, 1, campos.length));
+                    catalogo.insere(filme);
+                } else if (tipo.equalsIgnoreCase("Musica")) {
+                    Musica musica = LeitorCSV.criarMusica(Arrays.copyOfRange(campos, 1, campos.length));
+                    catalogo.insere(musica);
+                } else {
+                    System.err.println("Tipo de mídia não reconhecido: " + tipo);
+                }
             } else {
-                System.err.println("Tipo de mídia não reconhecido: " + tipo);
+                System.err.println("Dados nulos. Verifique os dados e tente novamente.");
             }
         } catch (Exception e) {
             e.printStackTrace(); // Exibe detalhes da exceção no console
