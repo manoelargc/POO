@@ -1,5 +1,6 @@
 package GerenciadorEstoque;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Produto {
@@ -14,12 +15,18 @@ public class Produto {
     private Date validade;
 
     //construtor
-    public Produto(String nome, String descricao, double preco, Date validade) {
+    public Produto(String nome, String descricao, double preco) {
         this.codigo = ++contador;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-        this.validade = validade;
+
+        // Cria uma data atual
+        Calendar cal = Calendar.getInstance();
+        // Adiciona um ano à data atual
+        cal.add(Calendar.YEAR, 1);
+        // Define a data de validade como um ano a partir da data atual
+        this.validade = cal.getTime();
     }
 
     //get e set
@@ -73,11 +80,10 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto " + codigo + "\n" +
-                "Nome= " + nome + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", preco=" + preco +
-                ", validade=" + validade +
-                '}';
+                "Nome= " + nome +
+                ", descricao= " + descricao +
+                ", preco= " + preco +
+                ", validade= " + validade;
     }
 
 

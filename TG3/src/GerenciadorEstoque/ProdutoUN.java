@@ -5,8 +5,8 @@ import java.util.Date;
 public class ProdutoUN extends Produto {
     private int quantidade;
 
-    public ProdutoUN(String nome, String descricao, double preco, Date validade, int quantidade) {
-        super(nome, descricao, preco, validade);
+    public ProdutoUN(String nome, String descricao, double preco, int quantidade) {
+        super(nome, descricao, preco);
         this.quantidade = quantidade;
     }
 
