@@ -1,7 +1,5 @@
 package GerenciadorEstoque;
 
-import java.util.Date;
-
 public class ProdutoUN extends Produto {
     private int quantidade;
 
@@ -25,7 +23,7 @@ public class ProdutoUN extends Produto {
      */
     @Override
     public String toString() {
-        return super.toString() + "\n" +
-                "Quantidade= " + getQuantidade() + "\n";
+        return super.toString() + ", " +
+                "quantidade= " + getQuantidade();
     }
 }
