@@ -16,7 +16,16 @@ public class Produto {
     private Date validade;
 
     // construtor
-    public Produto(String nome, String descricao, double preco) {
+    public Produto(String nome, String descricao, double preco) throws IllegalArgumentException {
+        if (nome == null || nome.isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode ser vazio.");
+        }
+        if (descricao == null || descricao.isEmpty()) {
+            throw new IllegalArgumentException("Descrição não pode ser vazia.");
+        }
+        if (preco <= 0) {
+            throw new IllegalArgumentException("Preço deve ser maior que zero.");
+        }
         this.codigo = ++contador;
         this.nome = nome;
         this.descricao = descricao;
@@ -28,7 +37,10 @@ public class Produto {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(int codigo) throws IllegalArgumentException {
+        if (codigo <= 0) {
+            throw new IllegalArgumentException("Código deve ser maior que zero.");
+        }
         this.codigo = codigo;
     }
 
@@ -36,7 +48,10 @@ public class Produto {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome) throws IllegalArgumentException {
+        if (nome == null || nome.isEmpty()) {
+            throw new IllegalArgumentException("Nome não pode ser vazio.");
+        }
         this.nome = nome;
     }
 
@@ -44,7 +59,10 @@ public class Produto {
         return descricao;
     }
 
-    public void setDescricao(String descricao) {
+    public void setDescricao(String descricao) throws IllegalArgumentException {
+        if (descricao == null || descricao.isEmpty()) {
+            throw new IllegalArgumentException("Descrição não pode ser vazia.");
+        }
         this.descricao = descricao;
     }
 
@@ -52,7 +70,10 @@ public class Produto {
         return preco;
     }
 
-    public void setPreco(double preco) {
+    public void setPreco(double preco) throws IllegalArgumentException {
+        if (preco <= 0) {
+            throw new IllegalArgumentException("Preço deve ser maior que zero.");
+        }
         this.preco = preco;
     }
 
@@ -74,10 +95,7 @@ public class Produto {
         SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date data = formato.parse(validade);
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(data);
-            cal.add(Calendar.YEAR, 1);
-            this.validade = cal.getTime();
+            this.validade = data;
         } catch (ParseException e) {
             System.out.println("Erro ao analisar a data. Por favor, insira a data no formato dd/MM/yyyy.");
         }
@@ -86,7 +104,7 @@ public class Produto {
     // Método toString para representação em String da classe Produto
     @Override
     public String toString() {
-        return "Produto " + codigo + "\n" +
+        return "\n" + "Produto " + codigo + "\n" +
                 "Nome= " + nome +
                 ", descricao= " + descricao +
                 ", preco= " + preco +

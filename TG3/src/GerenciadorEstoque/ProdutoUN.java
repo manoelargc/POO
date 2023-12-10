@@ -3,8 +3,11 @@ package GerenciadorEstoque;
 public class ProdutoUN extends Produto {
     private int quantidade;
 
-    public ProdutoUN(String nome, String descricao, double preco, int quantidade) {
+    public ProdutoUN(String nome, String descricao, double preco, int quantidade) throws IllegalArgumentException{
         super(nome, descricao, preco);
+        if (quantidade <= 0) {
+            throw new IllegalArgumentException("Quantidade deve ser maior que zero.");
+        }
         this.quantidade = quantidade;
     }
 
@@ -13,7 +16,14 @@ public class ProdutoUN extends Produto {
     }
 
     public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+        try {
+            if (quantidade < 0) {
+                throw new IllegalArgumentException("A quantidade não pode ser negativa.");
+            }
+            this.quantidade = quantidade;
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -23,7 +33,11 @@ public class ProdutoUN extends Produto {
      */
     @Override
     public String toString() {
-        return super.toString() + ", " +
-                "quantidade= " + getQuantidade();
+        try {
+            return super.toString() + ", " +
+                    "quantidade= " + getQuantidade();
+        } catch (Exception e) {
+            return "Erro ao gerar a representação em string do produto.";
+        }
     }
 }
