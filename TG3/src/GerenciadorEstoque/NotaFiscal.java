@@ -57,7 +57,7 @@ public class NotaFiscal {
         for (Item item : itens) {
             sb.append("Produto: ").append(item.getProduto().getNome()).append("\n");
             sb.append("Quantidade: ").append(item.getQuantidade()).append("\n");
-            sb.append("Preço Unitário: ").append(item.getProduto().getPreco()).append("\n");
+            sb.append("Preço Unitario/Kg: ").append(item.getProduto().getPreco()).append("\n");
             sb.append("Subtotal: ").append(item.getProduto().getPreco() * item.getQuantidade()).append("\n");
             sb.append("----------------------------------------\n");
         }
