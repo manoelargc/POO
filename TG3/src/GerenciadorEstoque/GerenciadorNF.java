@@ -12,6 +12,9 @@ public class GerenciadorNF implements INotasFiscais {
 
     @Override
     public boolean addNotaFiscal(NotaFiscal nf) {
+        if (nf == null) {
+            throw new IllegalArgumentException("Nota fiscal não pode ser nula.");
+        }
         return notasFiscais.add(nf);
     }
 

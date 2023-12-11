@@ -12,6 +12,9 @@ public class Estoque implements IProdutos {
 
     @Override
     public boolean addProduto(Produto p) {
+        if (p == null) {
+            throw new IllegalArgumentException("Produto não pode ser nulo.");
+        }
         for (Produto produto : produtos) {
             if (produto.getCodigo() == p.getCodigo()) {
                 return false;
