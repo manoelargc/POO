@@ -1,5 +1,6 @@
 package GerenciadorEstoque;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +49,7 @@ public class NotaFiscal {
 
     @Override
     public String toString() {
+        DecimalFormat df = new DecimalFormat("#.00");
         StringBuilder sb = new StringBuilder();
         sb.append("========================================\n");
         sb.append("NOTA FISCAL Nº: ").append(codigo).append("\n");
@@ -57,11 +59,12 @@ public class NotaFiscal {
         for (Item item : itens) {
             sb.append("Produto: ").append(item.getProduto().getNome()).append("\n");
             sb.append("Quantidade: ").append(item.getQuantidade()).append("\n");
-            sb.append("Preço Unitario/Kg: ").append(item.getProduto().getPreco()).append("\n");
-            sb.append("Subtotal: ").append(item.getProduto().getPreco() * item.getQuantidade()).append("\n");
+            sb.append("Preço Unitario/Kg: R$").append(item.getProduto().getPreco()).append("\n");
+            double subtotal = item.getProduto().getPreco() * item.getQuantidade();
+            sb.append("Subtotal: R$").append(df.format(subtotal)).append("\n");
             sb.append("----------------------------------------\n");
         }
-        sb.append("TOTAL: ").append(total).append("\n");
+        sb.append("TOTAL: R$").append(df.format(total)).append("\n");
         sb.append("========================================");
         return sb.toString();
     }
