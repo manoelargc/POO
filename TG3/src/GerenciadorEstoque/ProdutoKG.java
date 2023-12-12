@@ -10,6 +10,14 @@ package GerenciadorEstoque;
 public class ProdutoKG extends Produto {
     private double quantidade;
 
+
+    /**
+     * Construtor padrão/vazio da classe ProdutoKG
+     */
+    public ProdutoKG() {
+        super();
+    }
+
     /**
      * Construtor para a classe ProdutoKG.
      *

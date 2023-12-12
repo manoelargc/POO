@@ -10,6 +10,14 @@ package GerenciadorEstoque;
 public class ProdutoUN extends Produto {
     private int quantidade;
 
+
+    /**
+     * Construtor padrão/vazio da classe ProdutoUN
+     */
+    public ProdutoUN() {
+        super();
+    }
+
     /**
      * Construtor para a classe ProdutoUN.
      *
