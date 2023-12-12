@@ -60,9 +60,12 @@ public class teste {
         System.out.println("******************************");
         gerenciadorNF.removeNotaFiscal(nf.getCodigo());
         System.out.println(gerenciadorNF);
+
+
 // Imprimindo a nota fiscal
         System.out.println(nf);
 
-
+        ConsoleGUI console= new ConsoleGUI();
+        console.iniciar();
     }
 }
