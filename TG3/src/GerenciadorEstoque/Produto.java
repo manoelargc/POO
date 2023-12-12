@@ -11,15 +11,22 @@ import java.util.Date;
  * @author Manoela Resende
  * @author Eduarda Sifuentes
  */
-public class Produto {
+public abstract class Produto {
 
     // atributos
-    private static int contador = 0;
+    private static int contador = 1;
     private int codigo;
     private String nome;
     private String descricao;
     private double preco;
     private Date validade;
+
+
+    /**
+     * Construtor padrão/vazio da classe Produto
+     */
+    public Produto() {
+    }
 
     /**
      * Construtor para a classe Produto.
