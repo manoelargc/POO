@@ -1,6 +1,9 @@
 package GerenciadorEstoque;
 
+import java.io.StringWriter;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -8,13 +11,21 @@ import java.util.List;
 public class NotaFiscal {
     private static int contador = 0;
     private int codigo;
-    private Date data;
+    private String data;
     private List<Item> itens;
     private double total;
 
+    //default
     public NotaFiscal() {
         this.codigo = ++contador;
-        this.data = new Date();
+        this.data = data;
+        this.itens = new ArrayList<>();
+        this.total = 0.0;
+    }
+
+    public NotaFiscal(String data) {
+        this.codigo = ++contador;
+        this.data = data;
         this.itens = new ArrayList<>();
         this.total = 0.0;
     }
@@ -35,8 +46,12 @@ public class NotaFiscal {
         return codigo;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 
     public List<Item> getItens() {
@@ -48,16 +63,46 @@ public class NotaFiscal {
     }
 
     public String toCSV() {
-        return codigo + "," + data + "," + total;
+        // Adiciona os detalhes da Nota Fiscal
+        String csv = codigo + "," + data + "," + total;
+
+        // Adiciona os itens
+        for (Item item : itens) {
+            csv += "," + item.getProduto().getCodigo() + ":" + item.getQuantidade();
+        }
+
+        return csv;
     }
 
-    public static NotaFiscal fromCSV(String csv) {
+    public static NotaFiscal fromCSV(String csv, Estoque estoque) {
         String[] parts = csv.split(",");
         int codigo = Integer.parseInt(parts[0]);
         String data = parts[1];
         double total = Double.parseDouble(parts[2]);
-        return new NotaFiscal();
+
+        // Cria uma nova Nota Fiscal
+        NotaFiscal nf = new NotaFiscal(data);
+        nf.codigo = codigo;
+        nf.total = total;
+
+
+        // Adiciona os itens
+        for (int i = 3; i < parts.length; i++) {
+            String[] itemParts = parts[i].split(":");
+            int codigoProduto = Integer.parseInt(itemParts[0]);
+            double quantidade = Double.parseDouble(itemParts[1]);
+
+            // Aqui você deve encontrar o Produto com o código do produto.
+            Produto produto = estoque.getProduto(codigoProduto);
+
+            // Cria um novo Item e adiciona à Nota Fiscal
+            Item item = new Item(produto, quantidade);
+            nf.itens.add(item);
+        }
+
+        return nf;
     }
+
 
 
     @Override
