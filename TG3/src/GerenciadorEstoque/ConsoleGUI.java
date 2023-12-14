@@ -47,33 +47,46 @@ public class ConsoleGUI {
 
 
     public void cadastrarProduto() {
-        System.out.println("Digite o nome do produto:");
-        String nome = scanner.nextLine();
-        System.out.println("Digite a descrição do produto:");
-        String descricao = scanner.nextLine();
-        System.out.println("Digite o preço do produto:");
-        double preco = scanner.nextDouble();
-        System.out.println(preco);
-        scanner.nextLine();  // Consume newline left-over
-
-        System.out.println("Produto é por Kg ou UN?");
-        String tipo = scanner.nextLine();
-
-        if (tipo.equalsIgnoreCase("kg")) {
-            System.out.println("Digite a quantidade do produto:");
-            double quantidade = scanner.nextInt();
+        try {
+            System.out.println("Digite o nome do produto:");
+            String nome = scanner.nextLine();
+            System.out.println("Digite a descrição do produto:");
+            String descricao = scanner.nextLine();
+            System.out.println("Digite o preço do produto:");
+            double preco = scanner.nextDouble();
+            System.out.println(preco);
             scanner.nextLine();  // Consume newline left-over
-            ProdutoKG kg = new ProdutoKG(nome, descricao, preco, quantidade);
-            arquivo.getEstoque().addProduto(kg);
-        } else if (tipo.equalsIgnoreCase("un")) {
-            System.out.println("Digite a quantidade do produto:");
-            int quantidade = scanner.nextInt();
+
+            System.out.println("Produto é por Kg ou UN?");
+            System.out.println("1. Kg");
+            System.out.println("2. UN");
+            int tipo = scanner.nextInt();
             scanner.nextLine();  // Consume newline left-over
-            ProdutoUN un = new ProdutoUN(nome, descricao, preco, quantidade);
-            arquivo.getEstoque().addProduto(un);
+
+            switch (tipo) {
+                case 1:
+                    System.out.println("Digite a quantidade do produto:");
+                    double quantidadeKg = scanner.nextDouble();
+                    scanner.nextLine();  // Consume newline left-over
+                    ProdutoKG kg = new ProdutoKG(nome, descricao, preco, quantidadeKg);
+                    arquivo.getEstoque().addProduto(kg);
+                    break;
+                case 2:
+                    System.out.println("Digite a quantidade do produto:");
+                    int quantidadeUn = scanner.nextInt();
+                    scanner.nextLine();  // Consume newline left-over
+                    ProdutoUN un = new ProdutoUN(nome, descricao, preco, quantidadeUn);
+                    arquivo.getEstoque().addProduto(un);
+                    break;
+                default:
+                    System.out.println("Opção inválida. Por favor, tente novamente.");
+            }
+            System.out.println(arquivo.getEstoque().getProdutos());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        System.out.println(arquivo.getEstoque().getProdutos());
     }
+
 
     public void removerProduto() {
         System.out.println("Digite o código do produto que deseja remover:");
