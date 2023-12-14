@@ -60,6 +60,8 @@ public class ConsoleGUI {
             double preco = scanner.nextDouble();
             System.out.println(preco);
             scanner.nextLine();  // Consume newline left-over
+            System.out.println("Digite a validade do produto:");
+            String validade = scanner.nextLine();
 
             System.out.println("Produto é por Kg ou UN?");
             System.out.println("1. Kg");
@@ -72,14 +74,14 @@ public class ConsoleGUI {
                     System.out.println("Digite a quantidade do produto:");
                     double quantidadeKg = scanner.nextDouble();
                     scanner.nextLine();  // Consume newline left-over
-                    ProdutoKG kg = new ProdutoKG(nome, descricao, preco, quantidadeKg);
+                    ProdutoKG kg = new ProdutoKG(nome, descricao, preco, validade, quantidadeKg);
                     arquivo.getEstoque().addProduto(kg);
                     break;
                 case 2:
                     System.out.println("Digite a quantidade do produto:");
                     int quantidadeUn = scanner.nextInt();
                     scanner.nextLine();  // Consume newline left-over
-                    ProdutoUN un = new ProdutoUN(nome, descricao, preco, quantidadeUn);
+                    ProdutoUN un = new ProdutoUN(nome, descricao, preco, validade, quantidadeUn);
                     arquivo.getEstoque().addProduto(un);
                     break;
                 default:
@@ -276,7 +278,7 @@ public class ConsoleGUI {
         NotaFiscal nf = new NotaFiscal(dataNF); // Crie um novo objeto NotaFiscal
         // Defina as propriedades da NotaFiscal
         arquivo.getGerenciadorNF().addNotaFiscal(nf); // Adicione a NotaFiscal
-        System.out.println(nf);
+        //System.out.println(nf);
         System.out.println("Nota Fiscal criada com sucesso.");
     }
 
@@ -449,19 +451,15 @@ public class ConsoleGUI {
                         break;
                     case 3://mostrar nf
                         mostraNFe();
-                        //grava so a criacao, itens nao
                         break;
                     case 4:// consulta total de vendas
                         totalVendas();
-                        //caso 2
                         break;
                     case 5://add item na nf
                         addItemNFe();
-                        //falta diminuir no estoque
                         break;
                     case 6: //remover item da nf
                         removeItemNFe();
-                        //bug not working
                         break;
                     case 7: //editar nf
                         editaNFe();
