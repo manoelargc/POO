@@ -90,7 +90,7 @@ public class Estoque implements IProdutos {
         for (Produto produto : produtos) {
             if (produto.getCodigo() == codigo) {
                 if (produto instanceof ProdutoUN) {
-                    int novaQuantidade = ((ProdutoUN) produto).getQuantidade() - (int) quantidade;
+                    int novaQuantidade = (int) (((ProdutoUN) produto).getQuantidade() - (double) quantidade);
                     if (novaQuantidade < 0) {
                         return false;
                     }
