@@ -14,7 +14,7 @@ import java.util.Date;
 public abstract class Produto {
 
     // atributos
-    private static int contador = 1;
+    private static int contador = 0;
     private int codigo;
     private String nome;
     private String descricao;
