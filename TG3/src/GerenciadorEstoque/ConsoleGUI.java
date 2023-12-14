@@ -1,5 +1,8 @@
 package GerenciadorEstoque;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class ConsoleGUI {
@@ -11,7 +14,7 @@ public class ConsoleGUI {
         this.scanner = new Scanner(System.in);
     }
 
-    public void iniciar() {
+    public boolean iniciar() {
         while (true) {
             try {
                 System.out.println("\n========= Gerenciador =========");
@@ -34,7 +37,7 @@ public class ConsoleGUI {
                         System.out.println("Saindo...");
                         arquivo.salvarEstoque(arquivo.getEstoque());
                         arquivo.salvarGerenciadorNF(arquivo.getGerenciadorNF());
-                        break;
+                        return false;
                     default:
                         System.out.println("Opção inválida. Por favor, tente novamente.");
                 }
@@ -43,6 +46,7 @@ public class ConsoleGUI {
                 break;
             }
         }
+        return false;
     }
 
 
@@ -99,6 +103,7 @@ public class ConsoleGUI {
             e.printStackTrace();
         }
     }
+
     public void mostrarProduto() {
         try {
             System.out.println("Você deseja visualizar todos os produtos ou apenas um?");
@@ -143,6 +148,7 @@ public class ConsoleGUI {
             e.printStackTrace();
         }
     }
+
     public void addEstoqueProd() {
         try {
             System.out.println("Digite o código do produto que deseja add quantidade:");
@@ -157,6 +163,7 @@ public class ConsoleGUI {
             e.printStackTrace();
         }
     }
+
     public void subEstoqueProd() {
         try {
             System.out.println("Digite o código do produto que deseja subtrair quantidade:");
@@ -171,6 +178,7 @@ public class ConsoleGUI {
             e.printStackTrace();
         }
     }
+
     public void gerenciarEstoque() {
         int opcao = 0;
         do {
@@ -222,6 +230,171 @@ public class ConsoleGUI {
         } while (opcao != 0);
     }
 
+
+    //=========================================================================
+
+    public void criaNF() {
+        NotaFiscal nf = new NotaFiscal(); // Crie um novo objeto NotaFiscal
+        // Defina as propriedades da NotaFiscal
+        arquivo.getGerenciadorNF().addNotaFiscal(nf); // Adicione a NotaFiscal
+        System.out.println(nf);
+        System.out.println("Nota Fiscal criada com sucesso.");
+    }
+
+    public void excluiNFe() {
+        System.out.print("Digite o código da NFe que você deseja remover: ");
+        int codigoRemove = scanner.nextInt();
+        scanner.nextLine();  // Consume newline left-over
+        arquivo.getGerenciadorNF().removeNotaFiscal(codigoRemove); // Remova a NotaFiscal
+        System.out.println("Nota Fiscal removida com sucesso.");
+    }
+
+    public void mostraNFe() {
+        try {
+            System.out.println("Você deseja visualizar todas as notas fiscais ou apenas uma?");
+            System.out.println("1. Visualizar todas as notas fiscais");
+            System.out.println("2. Visualizar uma nota fiscal");
+            System.out.print("\nDigite a opção: ");
+
+            int op = scanner.nextInt();
+            scanner.nextLine();  // Consume newline left-over
+
+            if (op == 1) {
+                // Visualizar todas as notas fiscais
+                for (NotaFiscal nf : arquivo.getGerenciadorNF().getNotasFiscais()) {
+                    System.out.println(nf);
+                }
+            } else if (op == 2) {
+                // Visualizar uma nota fiscal
+                System.out.println("Digite o código da nota fiscal que deseja visualizar:");
+                int codigoNF = scanner.nextInt();
+                scanner.nextLine();  // Consume newline left-over
+                NotaFiscal nfEncontrada = arquivo.getGerenciadorNF().getNotaFiscal(codigoNF);
+                System.out.println(nfEncontrada);
+            } else {
+                System.out.println("Opção inválida. Por favor, tente novamente.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public void totalVendas() throws ParseException {
+        System.out.println("1. Saber o total vendido a partir da soma do total de todas as notas fiscais");
+        System.out.println("2. Saber o total vendido em um determinado dia");
+        System.out.println("3. Saber o total vendido em um determinado período");
+        System.out.print("\nDigite a opção: ");
+
+        int opTotal = scanner.nextInt();
+        scanner.nextLine();  // Consume newline left-over
+
+        switch (opTotal) {
+            case 1:
+                double totalVendido = arquivo.getGerenciadorNF().getTotalVendido();
+                System.out.println("O total vendido a partir da soma do total de todas as notas fiscais é: " + totalVendido);
+                break;
+            case 2:
+                System.out.println("Digite a data (formato dd/MM/yyyy):");
+                String data = scanner.nextLine();
+                double totalVendidoDia = arquivo.getGerenciadorNF().getTotalVendido(data);
+                System.out.println("O total vendido no dia " + data + " é: " + totalVendidoDia);
+                break;
+            case 3:
+                datevenda();
+                break;
+            default:
+                System.out.println("Opção inválida. Por favor, tente novamente.");
+        }
+
+    }
+
+    public void datevenda(){
+        System.out.println("Digite o código da NFe para o período inicial:");
+        int codigoNFeInicio = scanner.nextInt();
+        scanner.nextLine();  // Consume newline left-over
+
+        System.out.println("Digite o código da NFe para o período final:");
+        int codigoNFeFim = scanner.nextInt();
+        scanner.nextLine();  // Consume newline left-over
+
+        // Obtém as Notas Fiscais
+        NotaFiscal nfInicio = arquivo.getGerenciadorNF().getNotaFiscal(codigoNFeInicio);
+        NotaFiscal nfFim = arquivo.getGerenciadorNF().getNotaFiscal(codigoNFeFim);
+
+        if (nfInicio != null && nfFim != null) {
+            // Obtém as datas das Notas Fiscais
+            Date dataInicio = nfInicio.getData();
+            Date dataFim = nfFim.getData();
+
+            // Cria um objeto SimpleDateFormat
+            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
+            // Formata as datas como strings para a saída
+            String dataInicioString = formatador.format(dataInicio);
+            String dataFimString = formatador.format(dataFim);
+
+            // Agora você pode usar dataInicio e dataFim com o método getTotalVendido
+            double totalVendidoPeriodo = arquivo.getGerenciadorNF().getTotalVendido(dataInicio, dataFim);
+
+            System.out.println("O total vendido no período de " + dataInicioString + " a " + dataFimString + " é: " + totalVendidoPeriodo);
+        } else {
+            System.out.println("Uma ou ambas as Notas Fiscais não foram encontradas. Verifique os códigos das NFes e tente novamente.");
+        }
+
+    }
+    public void addItemNFe() {
+        System.out.println("Digite o código da NFe que você deseja adicionar um item:");
+        int codigoNFe = scanner.nextInt();
+        scanner.nextLine();  // Consume newline left-over
+
+        System.out.println("Digite o código do produto que você deseja adicionar:");
+        int codigoProduto = scanner.nextInt();
+        scanner.nextLine();  // Consume newline left-over
+
+        System.out.println("Digite a quantidade do produto:");
+        double quantidade = scanner.nextDouble();
+        scanner.nextLine();  // Consume newline left-over
+
+        Produto produto = arquivo.getEstoque().getProduto(codigoProduto);
+        if (produto != null) {
+            NotaFiscal nfItemAdd = arquivo.getGerenciadorNF().getNotaFiscal(codigoNFe);
+            if (nfItemAdd != null) {
+                nfItemAdd.adicionarItem(produto, quantidade);
+                System.out.println("Item adicionado com sucesso.");
+            } else {
+                System.out.println("NFe não encontrada.");
+            }
+        } else {
+            System.out.println("Produto não encontrado.");
+        }
+
+    }
+
+    public void removeItemNFe() {
+            System.out.println("Digite o código da NFe de onde você deseja remover um item:");
+            int codigoNFe = scanner.nextInt();
+            scanner.nextLine();  // Consume newline left-over
+
+            System.out.println("Digite o código do produto que você deseja remover:");
+            int codigoProduto = scanner.nextInt();
+            scanner.nextLine();  // Consume newline left-over
+
+            Produto produto = arquivo.getEstoque().getProduto(codigoProduto);
+            if (produto != null) {
+                Item itemRemover = new Item(produto, 1); // A quantidade não importa ao remover o item
+                boolean itemRemovido = arquivo.getGerenciadorNF().removeItem(codigoNFe, itemRemover);
+                if (itemRemovido) {
+                    System.out.println("Item removido com sucesso.");
+                } else {
+                    System.out.println("Não foi possível remover o item. Verifique o código da NFe e tente novamente.");
+                }
+            } else {
+                System.out.println("Produto não encontrado.");
+            }
+        }
+
     public void gerenciarNotasFiscais() {
         while (true) {
             try {
@@ -229,7 +402,7 @@ public class ConsoleGUI {
                 System.out.println("1. Criar NFe");
                 System.out.println("2. Excluir NFe");
                 System.out.println("3. Mostrar NFe");
-                System.out.println("4. Retornar preço total de uma NFe");
+                System.out.println("4. Consultar total vendido");
                 System.out.println("5. Adicionar item na NFe");
                 System.out.println("6. Remover item da NFe");
                 System.out.println("0. Voltar ao menu principal");
@@ -240,88 +413,28 @@ public class ConsoleGUI {
 
                 switch (opcao) {
                     case 1://add nf
-                        NotaFiscal nf = new NotaFiscal(); // Crie um novo objeto NotaFiscal
-                        // Defina as propriedades da NotaFiscal
-                        arquivo.getGerenciadorNF().addNotaFiscal(nf); // Adicione a NotaFiscal
-                        System.out.println(nf);
-                        System.out.println("Nota Fiscal criada com sucesso.");
+                        criaNF();
                         break;
                     case 2://excluir nf
-                        System.out.print("Digite o código da NFe que você deseja remover: ");
-                        int codigoRemove = scanner.nextInt();
-                        scanner.nextLine();  // Consume newline left-over
-                        arquivo.getGerenciadorNF().removeNotaFiscal(codigoRemove); // Remova a NotaFiscal
-                        System.out.println("Nota Fiscal removida com sucesso.");
+                        excluiNFe();
                         break;
                     case 3://mostrar nf
-                        System.out.print("Digite o código da NFe que você deseja mostrar: ");
-                        int codigoMostra = scanner.nextInt();
-                        scanner.nextLine();  // Consume newline left-over
-                        NotaFiscal nfEncontrada = arquivo.getGerenciadorNF().getNotaFiscal(codigoMostra); // Obtenha a NotaFiscal
-                        System.out.println(nfEncontrada); // Imprima a NotaFiscal
+                        mostraNFe();
+                        //grava so a criacao, itens nao
                         break;
-                    case 4:// preço total de uma nf
-                        System.out.println("1. Saber o total vendido a partir da soma do total de todas as notas fiscais");
-                        System.out.println("2. Saber o total vendido em um determinado dia");
-                        System.out.println("3. Saber o total vendido em um determinado período");
-                        System.out.print("\nDigite a opção: ");
-
-                        int opTotal = scanner.nextInt();
-                        scanner.nextLine();  // Consume newline left-over
-
-                        switch (opTotal) {
-                            case 1:
-                                double totalVendido = arquivo.getGerenciadorNF().getTotalVendido();
-                                System.out.println("O total vendido a partir da soma do total de todas as notas fiscais é: " + totalVendido);
-                                break;
-                            case 2:
-                                System.out.println("Digite a data (formato dd/MM/yyyy):");
-                                String data = scanner.nextLine();
-                                double totalVendidoDia = arquivo.getGerenciadorNF().getTotalVendido(data);
-                                System.out.println("O total vendido no dia " + data + " é: " + totalVendidoDia);
-                                break;
-                            case 3:
-                                System.out.println("Digite a data de início (formato dd/MM/yyyy):");
-                                String dataInicio = scanner.nextLine();
-                                System.out.println("Digite a data de fim (formato dd/MM/yyyy):");
-                                String dataFim = scanner.nextLine();
-                                /*double totalVendidoPeriodo = arquivo.getGerenciadorNF().getTotalVendido(dataInicio, dataFim);
-                                System.out.println("O total vendido no período de " + dataInicio + " a " + dataFim + " é: " + totalVendidoPeriodo);*/
-                                break;
-                            default:
-                                System.out.println("Opção inválida. Por favor, tente novamente.");
-                        }
-
+                    case 4:// consulta total de vendas
+                        totalVendas();
+                        //caso 2
                         break;
                     case 5://add item na nf
-                        System.out.println("Digite o código da NFe que você deseja adicionar um item:");
-                        int codigoNFe = scanner.nextInt();
-                        scanner.nextLine();  // Consume newline left-over
-
-                        System.out.println("Digite o código do produto que você deseja adicionar:");
-                        int codigoProduto = scanner.nextInt();
-                        scanner.nextLine();  // Consume newline left-over
-
-                        System.out.println("Digite a quantidade do produto:");
-                        double quantidade = scanner.nextDouble();
-                        scanner.nextLine();  // Consume newline left-over
-
-                        Produto produto = arquivo.getEstoque().getProduto(codigoProduto);
-                        if (produto != null) {
-                            NotaFiscal nfItemAdd = arquivo.getGerenciadorNF().getNotaFiscal(codigoNFe);
-                            if (nfItemAdd != null) {
-                                nfItemAdd.adicionarItem(produto, quantidade);
-                                System.out.println("Item adicionado com sucesso.");
-                            } else {
-                                System.out.println("NFe não encontrada.");
-                            }
-                        } else {
-                            System.out.println("Produto não encontrado.");
-                        }
+                        addItemNFe();
+                        //falta diminuir no estoque
                         break;
-                    case 6://remover item da nf
-
+                    case 6: //remover item da nf
+                        removeItemNFe();
+                        //bug not working
                         break;
+
                     case 0:
                         return;
                     default:
