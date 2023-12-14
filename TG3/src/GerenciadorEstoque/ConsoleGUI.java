@@ -40,25 +40,26 @@ public class ConsoleGUI {
                 }
             } catch (Exception e) {
                 System.out.println("Ocorreu um erro: " + e.getMessage());
+                break;
             }
         }
     }
 
     public void gerenciarEstoque() {
-        while (true) {
+        int opcao = 0;
+        do {
             try {
                 System.out.println("\nGerenciador de Estoque:");
                 System.out.println("1. Adicionar produto");
                 System.out.println("2. Remover produto");
                 System.out.println("3. Mostrar produto");
-                System.out.println("4. Atualizar quantidade total em estoque de um produto");
-                System.out.println("5. Atualizar preço do produto");
-                System.out.println("6. Adicionar quantidade de produto em estoque");
-                System.out.println("7. Subtrair quantidade produto em estoque");
+                System.out.println("4. Atualizar preço do produto");
+                System.out.println("5. Adicionar quantidade de produto em estoque");
+                System.out.println("6. Subtrair quantidade produto em estoque");
                 System.out.println("0. Voltar ao menu principal");
                 System.out.print("\nDigite a opção: ");
 
-                int opcao = scanner.nextInt();
+                opcao = scanner.nextInt();
                 scanner.nextLine();  // Consume newline left-over
 
                 switch (opcao) {
@@ -69,38 +70,93 @@ public class ConsoleGUI {
                         String descricao = scanner.nextLine();
                         System.out.println("Digite o preço do produto:");
                         double preco = scanner.nextDouble();
+                        System.out.println(preco);
                         scanner.nextLine();  // Consume newline left-over
 
                         System.out.println("Produto é por Kg ou UN?");
                         String tipo = scanner.nextLine();
 
-                        if(tipo.equalsIgnoreCase("kg")){
+                        if (tipo.equalsIgnoreCase("kg")) {
                             System.out.println("Digite a quantidade do produto:");
                             double quantidade = scanner.nextInt();
                             scanner.nextLine();  // Consume newline left-over
-                            ProdutoKG kg = new ProdutoKG(nome,descricao,preco,quantidade);
+                            ProdutoKG kg = new ProdutoKG(nome, descricao, preco, quantidade);
                             estoque.addProduto(kg);
-                        } else if (tipo.equalsIgnoreCase("un")){
+                        } else if (tipo.equalsIgnoreCase("un")) {
                             System.out.println("Digite a quantidade do produto:");
                             int quantidade = scanner.nextInt();
                             scanner.nextLine();  // Consume newline left-over
-                            ProdutoUN un = new ProdutoUN(nome,descricao,preco,quantidade);
+                            ProdutoUN un = new ProdutoUN(nome, descricao, preco, quantidade);
                             estoque.addProduto(un);
                         }
-                            System.out.println(estoque.toString());
+                        System.out.println(estoque.getProdutos());
                         break;
+
                     case 2://remover produto
+                        System.out.println("Digite o código do produto que deseja remover:");
+                        int codigo = scanner.nextInt();
+                        scanner.nextLine();  // Consume newline left-over
+                        estoque.removeProduto(codigo);
+                        System.out.println("Produto removido com sucesso.");
                         break;
+
                     case 3://mostrar produto
+                        System.out.println("Você deseja visualizar todos os produtos ou apenas um?");
+                        System.out.println("1. Visualizar todos os produtos");
+                        System.out.println("2. Visualizar um produto");
+                        System.out.print("\nDigite a opção: ");
+
+                        int op = scanner.nextInt();
+                        scanner.nextLine();  // Consume newline left-over
+
+                        if (op == 1) {
+                            // Visualizar todos os produtos
+                            for (Produto produto : estoque.getProdutos()) {
+                                System.out.println(produto);
+                            }
+                        } else if (op == 2) {
+                            // Visualizar um produto
+                            System.out.println("Digite o código do produto que deseja visualizar:");
+                            int codigoProduto = scanner.nextInt();
+                            scanner.nextLine();  // Consume newline left-over
+                            Produto produtoEncontrado = estoque.getProduto(codigoProduto);
+                            System.out.println(produtoEncontrado);
+                        } else {
+                            System.out.println("Opção inválida. Por favor, tente novamente.");
+                        }
+
                         break;
-                    case 4://atualizar quantidade total
+                    case 4://atualizar preço
+                        System.out.println("Digite o código do produto que deseja atualizar o preço:");
+                        int codigoPreco = scanner.nextInt();
+                        scanner.nextLine();  // Consume newline left-over
+                        System.out.println("Digite o novo preço:");
+                        double novoPreco = scanner.nextDouble();
+                        scanner.nextLine();  // Consume newline left-over
+                        estoque.updatePreco(codigoPreco, novoPreco);
+                        System.out.println("Preço atualizado com sucesso.");
+
                         break;
-                    case 5://atualizar preço
+                    case 5://add quantidade de produto em estoque
+                        System.out.println("Digite o código do produto que deseja add quantidade:");
+                        int codigoAdicionar = scanner.nextInt();
+                        scanner.nextLine();  // Consume newline left-over
+                        System.out.println("Digite a quantidade a ser adicionada:");
+                        double quantidadeAdicionar = scanner.nextDouble();
+                        scanner.nextLine();  // Consume newline left-over
+                        estoque.addQuantidade(codigoAdicionar, quantidadeAdicionar);
+                        System.out.println("Quantidade adicionada com sucesso.");
                         break;
-                    case 6://add quantidade de produto em estoque
-                        break;
-                    case 7:
+                    case 6:
                         //subtrair quantidade de produto em estoque
+                        System.out.println("Digite o código do produto que deseja subtrair quantidade:");
+                        int codigoSubtrair = scanner.nextInt();
+                        scanner.nextLine();  // Consume newline left-over
+                        System.out.println("Digite a quantidade a ser subtraída:");
+                        double quantidadeSubtrair = scanner.nextDouble();
+                        scanner.nextLine();  // Consume newline left-over
+                        estoque.subQuantidade(codigoSubtrair, quantidadeSubtrair);
+                        System.out.println("Quantidade subtraída com sucesso.");
                         break;
                     case 0:
                         return;
@@ -109,15 +165,16 @@ public class ConsoleGUI {
                 }
             } catch (Exception e) {
                 System.out.println("Ocorreu um erro: " + e.getMessage());
+                break;
             }
-        }
+        } while (opcao != 0);
     }
 
     public void gerenciarNotasFiscais() {
         while (true) {
             try {
                 System.out.println("\nGerenciador de Notas Fiscais:");
-                System.out.println("1. Adicionar NFe");
+                System.out.println("1. Criar NFe");
                 System.out.println("2. Excluir NFe");
                 System.out.println("3. Mostrar NFe");
                 System.out.println("4. Retornar preço total de uma NFe");
@@ -131,16 +188,87 @@ public class ConsoleGUI {
 
                 switch (opcao) {
                     case 1://add nf
+                        NotaFiscal nf = new NotaFiscal(); // Crie um novo objeto NotaFiscal
+                        // Defina as propriedades da NotaFiscal
+                        gerenciadorNF.addNotaFiscal(nf); // Adicione a NotaFiscal
+                        System.out.println(nf);
+                        System.out.println("Nota Fiscal criada com sucesso.");
                         break;
                     case 2://excluir nf
+                        System.out.print("Digite o código da NFe que você deseja remover: ");
+                        int codigoRemove = scanner.nextInt();
+                        scanner.nextLine();  // Consume newline left-over
+                        gerenciadorNF.removeNotaFiscal(codigoRemove); // Remova a NotaFiscal
+                        System.out.println("Nota Fiscal removida com sucesso.");
                         break;
                     case 3://mostrar nf
+                        System.out.print("Digite o código da NFe que você deseja mostrar: ");
+                        int codigoMostra = scanner.nextInt();
+                        scanner.nextLine();  // Consume newline left-over
+                        NotaFiscal nfEncontrada = gerenciadorNF.getNotaFiscal(codigoMostra); // Obtenha a NotaFiscal
+                        System.out.println(nfEncontrada); // Imprima a NotaFiscal
                         break;
                     case 4:// preço total de uma nf
+                        System.out.println("1. Saber o total vendido a partir da soma do total de todas as notas fiscais");
+                        System.out.println("2. Saber o total vendido em um determinado dia");
+                        System.out.println("3. Saber o total vendido em um determinado período");
+                        System.out.print("\nDigite a opção: ");
+
+                        int opTotal = scanner.nextInt();
+                        scanner.nextLine();  // Consume newline left-over
+
+                        switch (opTotal) {
+                            case 1:
+                                double totalVendido = gerenciadorNF.getTotalVendido();
+                                System.out.println("O total vendido a partir da soma do total de todas as notas fiscais é: " + totalVendido);
+                                break;
+                            case 2:
+                                System.out.println("Digite a data (formato dd/MM/yyyy):");
+                                String data = scanner.nextLine();
+                                double totalVendidoDia = gerenciadorNF.getTotalVendido(data);
+                                System.out.println("O total vendido no dia " + data + " é: " + totalVendidoDia);
+                                break;
+                            case 3:
+                                System.out.println("Digite a data de início (formato dd/MM/yyyy):");
+                                String dataInicio = scanner.nextLine();
+                                System.out.println("Digite a data de fim (formato dd/MM/yyyy):");
+                                String dataFim = scanner.nextLine();
+                                double totalVendidoPeriodo = gerenciadorNF.getTotalVendido(dataInicio, dataFim);
+                                System.out.println("O total vendido no período de " + dataInicio + " a " + dataFim + " é: " + totalVendidoPeriodo);
+                                break;
+                            default:
+                                System.out.println("Opção inválida. Por favor, tente novamente.");
+                        }
+
                         break;
                     case 5://add item na nf
+                        System.out.println("Digite o código da NFe que você deseja adicionar um item:");
+                        int codigoNFe = scanner.nextInt();
+                        scanner.nextLine();  // Consume newline left-over
+
+                        System.out.println("Digite o código do produto que você deseja adicionar:");
+                        int codigoProduto = scanner.nextInt();
+                        scanner.nextLine();  // Consume newline left-over
+
+                        System.out.println("Digite a quantidade do produto:");
+                        double quantidade = scanner.nextDouble();
+                        scanner.nextLine();  // Consume newline left-over
+
+                        Produto produto = estoque.getProduto(codigoProduto);
+                        if (produto != null) {
+                            NotaFiscal nfItemAdd = gerenciadorNF.getNotaFiscal(codigoNFe);
+                            if (nfItemAdd != null) {
+                                nfItemAdd.adicionarItem(produto, quantidade);
+                                System.out.println("Item adicionado com sucesso.");
+                            } else {
+                                System.out.println("NFe não encontrada.");
+                            }
+                        } else {
+                            System.out.println("Produto não encontrado.");
+                        }
                         break;
                     case 6://remover item da nf
+
                         break;
                     case 0:
                         return;
@@ -152,81 +280,4 @@ public class ConsoleGUI {
             }
         }
     }
-
-    /*public void addProduto() {
-        System.out.println("Digite o nome do produto:");
-        String nome = scanner.nextLine();
-        System.out.println("Digite a descrição do produto:");
-        String descricao = scanner.nextLine();
-        System.out.println("Digite o preço do produto:");
-        double preco = scanner.nextDouble();
-        scanner.nextLine();  // Consume newline left-over
-        System.out.println("Digite a quantidade do produto:");
-        int quantidade = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        Produto produto = new Produto(nome, descricao, preco);
-        estoque.addProduto(produto);
-        System.out.println("Produto adicionado com sucesso.");
-    }
-
-    public void removerProduto() {
-        System.out.println("Digite o código do produto que deseja remover:");
-        int codigo = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        estoque.removeProduto(codigo);
-        System.out.println("Produto removido com sucesso.");
-    }
-
-    public void mostrarProduto() {
-        System.out.println("Digite o código do produto que deseja visualizar:");
-        int codigoProduto = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        Produto produtoEncontrado = estoque.getProduto(codigoProduto);
-        System.out.println(produtoEncontrado);
-    }
-
-    public void atualizarQuantidadeTotal() {
-        System.out.println("Digite o código do produto que deseja atualizar:");
-        int codigoAtualizar = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        System.out.println("Digite a nova quantidade:");
-        int novaQuantidade = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        estoque.updateProduto(codigoAtualizar, novaQuantidade);
-        System.out.println("Quantidade atualizada com sucesso.");
-    }
-
-    public void atualizarPreco() {
-        System.out.println("Digite o código do produto que deseja atualizar o preço:");
-        int codigoPreco = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        System.out.println("Digite o novo preço:");
-        double novoPreco = scanner.nextDouble();
-        scanner.nextLine();  // Consume newline left-over
-        estoque.updatePreco(codigoPreco, novoPreco);
-        System.out.println("Preço atualizado com sucesso.");
-    }
-
-    public void addQuantidade() {
-        System.out.println("Digite o código do produto que deseja add quantidade:");
-        int codigoAdicionar = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        System.out.println("Digite a quantidade a ser adicionada:");
-        int quantidadeAdicionar = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        estoque.addQuantidade(codigoAdicionar, quantidadeAdicionar);
-        System.out.println("Quantidade adicionada com sucesso.");
-    }
-
-    public void subtrairQuantidade() {
-        System.out.println("Digite o código do produto que deseja subtrair quantidade:");
-        int codigoSubtrair = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        System.out.println("Digite a quantidade a ser subtraída:");
-        int quantidadeSubtrair = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        estoque.subQuantidade(codigoSubtrair, quantidadeSubtrair);
-        System.out.println("Quantidade subtraída com sucesso.");
-    }
-*/
 }
