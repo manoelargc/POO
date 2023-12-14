@@ -98,7 +98,7 @@ public class GerenciadorNF implements INotasFiscais {
     }
 
 
-    public double getTotalVendido(Date dataInicio, Date dataFim) {
+    public double getTotalVendido(String dataInicio, String dataFim) {
         double total = 0;
         for (NotaFiscal nf : notasFiscais) {
             if (nf.getData().compareTo(dataInicio) >= 0 && nf.getData().compareTo(dataFim) <= 0) {
