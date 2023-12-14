@@ -190,7 +190,7 @@ public class Produto {
     }
 
     public String toCSV() {
-        return codigo + "," + nome + "," + descricao + "," + preco + "," + quantidade;
+        return codigo + "," + nome + "," + descricao + "," + preco + "," + getValidade() + "," + quantidade;
     }
 
     public static Produto fromCSV(String csv) {
@@ -199,7 +199,8 @@ public class Produto {
         String nome = parts[1];
         String descricao = parts[2];
         double preco = Double.parseDouble(parts[3]);
-        double quantidade = Double.parseDouble(parts[4]);
+        String validade = parts[4];
+        double quantidade = Double.parseDouble(parts[5]);
         return new Produto(nome, descricao, preco, quantidade);
     }
 
@@ -214,6 +215,7 @@ public class Produto {
                 "Nome= " + nome +
                 ", descricao= " + descricao +
                 ", preco= " + preco +
-                ", validade=" + getValidade();
+                ", validade=" + getValidade() +
+                ", quantidade= " + quantidade;
     }
 }
