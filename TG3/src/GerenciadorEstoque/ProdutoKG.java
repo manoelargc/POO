@@ -28,7 +28,7 @@ public class ProdutoKG extends Produto {
      * @throws IllegalArgumentException Se a quantidade for menor ou igual a zero.
      */
     public ProdutoKG(String nome, String descricao, double preco, double quantidade) throws IllegalArgumentException {
-        super(nome, descricao, preco);
+        super(nome, descricao, preco, quantidade);
         if (quantidade <= 0) {
             throw new IllegalArgumentException("Quantidade deve ser maior que zero.");
         }

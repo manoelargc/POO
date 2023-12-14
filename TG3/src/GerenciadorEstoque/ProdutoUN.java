@@ -28,7 +28,7 @@ public class ProdutoUN extends Produto {
      * @throws IllegalArgumentException Se a quantidade for menor ou igual a zero.
      */
     public ProdutoUN(String nome, String descricao, double preco, int quantidade) throws IllegalArgumentException{
-        super(nome, descricao, preco);
+        super(nome, descricao, preco, quantidade);
         if (quantidade <= 0) {
             throw new IllegalArgumentException("Quantidade deve ser maior que zero.");
         }
@@ -40,7 +40,7 @@ public class ProdutoUN extends Produto {
      *
      * @return A quantidade do produto.
      */
-    public int getQuantidade() {
+    public double getQuantidade() {
         return quantidade;
     }
 

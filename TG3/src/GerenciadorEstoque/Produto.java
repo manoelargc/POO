@@ -11,7 +11,7 @@ import java.util.Date;
  * @author Manoela Resende
  * @author Eduarda Sifuentes
  */
-public abstract class Produto {
+public class Produto {
 
     // atributos
     private static int contador = 0;
@@ -20,6 +20,7 @@ public abstract class Produto {
     private String descricao;
     private double preco;
     private Date validade;
+    private double quantidade;
 
 
     /**
@@ -36,7 +37,7 @@ public abstract class Produto {
      * @param preco      O preço do produto.
      * @throws IllegalArgumentException Se o nome ou a descrição estiverem vazios, ou se o preço for menor ou igual a zero.
      */
-    public Produto(String nome, String descricao, double preco) throws IllegalArgumentException {
+    public Produto(String nome, String descricao, double preco, double quantidade) throws IllegalArgumentException {
         if (nome == null || nome.isEmpty()) {
             throw new IllegalArgumentException("Nome não pode ser vazio.");
         }
@@ -46,12 +47,15 @@ public abstract class Produto {
         if (preco <= 0) {
             throw new IllegalArgumentException("Preço deve ser maior que zero.");
         }
+        if (quantidade < 0) {
+            throw new IllegalArgumentException("Quantidade não pode ser negativa.");
+        }
+        this.quantidade = quantidade;
         this.codigo = ++contador;
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
     }
-
     /**
      * Retorna o código do produto.
      *
@@ -172,6 +176,17 @@ public abstract class Produto {
         } catch (ParseException e) {
             System.out.println("Erro ao analisar a data. Por favor, insira a data no formato dd/MM/yyyy.");
         }
+    }
+
+    public double getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(double quantidade) throws IllegalArgumentException {
+        if (quantidade < 0) {
+            throw new IllegalArgumentException("Quantidade não pode ser negativa.");
+        }
+        this.quantidade = quantidade;
     }
 
     /**
