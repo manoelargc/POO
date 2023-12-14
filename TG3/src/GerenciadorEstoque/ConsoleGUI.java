@@ -89,74 +89,88 @@ public class ConsoleGUI {
 
 
     public void removerProduto() {
-        System.out.println("Digite o código do produto que deseja remover:");
-        int codigo = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        arquivo.getEstoque().removeProduto(codigo);
-        System.out.println("Produto removido com sucesso.");
-    }
-
-    public void mostrarProduto() {
-        System.out.println("Você deseja visualizar todos os produtos ou apenas um?");
-        System.out.println("1. Visualizar todos os produtos");
-        System.out.println("2. Visualizar um produto");
-        System.out.print("\nDigite a opção: ");
-
-        int op = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-
-        if (op == 1) {
-            // Visualizar todos os produtos
-            for (Produto produto : arquivo.getEstoque().getProdutos()) {
-                System.out.println(produto);
-            }
-        } else if (op == 2) {
-            // Visualizar um produto
-            System.out.println("Digite o código do produto que deseja visualizar:");
-            int codigoProduto = scanner.nextInt();
+        try {
+            System.out.println("Digite o código do produto que deseja remover:");
+            int codigo = scanner.nextInt();
             scanner.nextLine();  // Consume newline left-over
-            Produto produtoEncontrado = arquivo.getEstoque().getProduto(codigoProduto);
-            System.out.println(produtoEncontrado);
-        } else {
-            System.out.println("Opção inválida. Por favor, tente novamente.");
+            arquivo.getEstoque().removeProduto(codigo);
+            System.out.println("Produto removido com sucesso.");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+    public void mostrarProduto() {
+        try {
+            System.out.println("Você deseja visualizar todos os produtos ou apenas um?");
+            System.out.println("1. Visualizar todos os produtos");
+            System.out.println("2. Visualizar um produto");
+            System.out.print("\nDigite a opção: ");
 
+            int op = scanner.nextInt();
+            scanner.nextLine();  // Consume newline left-over
+
+            if (op == 1) {
+                // Visualizar todos os produtos
+                for (Produto produto : arquivo.getEstoque().getProdutos()) {
+                    System.out.println(produto);
+                }
+            } else if (op == 2) {
+                // Visualizar um produto
+                System.out.println("Digite o código do produto que deseja visualizar:");
+                int codigoProduto = scanner.nextInt();
+                scanner.nextLine();  // Consume newline left-over
+                Produto produtoEncontrado = arquivo.getEstoque().getProduto(codigoProduto);
+                System.out.println(produtoEncontrado);
+            } else {
+                System.out.println("Opção inválida. Por favor, tente novamente.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void atualizarPreco() {
-        System.out.println("Digite o código do produto que deseja atualizar o preço:");
-        int codigoPreco = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        System.out.println("Digite o novo preço:");
-        double novoPreco = scanner.nextDouble();
-        scanner.nextLine();  // Consume newline left-over
-        arquivo.getEstoque().updatePreco(codigoPreco, novoPreco);
-        System.out.println("Preço atualizado com sucesso.");
-
+        try {
+            System.out.println("Digite o código do produto que deseja atualizar o preço:");
+            int codigoPreco = scanner.nextInt();
+            scanner.nextLine();  // Consume newline left-over
+            System.out.println("Digite o novo preço:");
+            double novoPreco = scanner.nextDouble();
+            scanner.nextLine();  // Consume newline left-over
+            arquivo.getEstoque().updatePreco(codigoPreco, novoPreco);
+            System.out.println("Preço atualizado com sucesso.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
     public void addEstoqueProd() {
-        System.out.println("Digite o código do produto que deseja add quantidade:");
-        int codigoAdicionar = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        System.out.println("Digite a quantidade a ser adicionada:");
-        double quantidadeAdicionar = scanner.nextDouble();
-        scanner.nextLine();  // Consume newline left-over
-        arquivo.getEstoque().addQuantidade(codigoAdicionar, quantidadeAdicionar);
-        System.out.println("Quantidade adicionada com sucesso.");
+        try {
+            System.out.println("Digite o código do produto que deseja add quantidade:");
+            int codigoAdicionar = scanner.nextInt();
+            scanner.nextLine();  // Consume newline left-over
+            System.out.println("Digite a quantidade a ser adicionada:");
+            double quantidadeAdicionar = scanner.nextDouble();
+            scanner.nextLine();  // Consume newline left-over
+            arquivo.getEstoque().addQuantidade(codigoAdicionar, quantidadeAdicionar);
+            System.out.println("Quantidade adicionada com sucesso.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
     public void subEstoqueProd() {
-        System.out.println("Digite o código do produto que deseja subtrair quantidade:");
-        int codigoSubtrair = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-        System.out.println("Digite a quantidade a ser subtraída:");
-        double quantidadeSubtrair = scanner.nextDouble();
-        scanner.nextLine();  // Consume newline left-over
-        arquivo.getEstoque().subQuantidade(codigoSubtrair, quantidadeSubtrair);
-        System.out.println("Quantidade subtraída com sucesso.");
+        try {
+            System.out.println("Digite o código do produto que deseja subtrair quantidade:");
+            int codigoSubtrair = scanner.nextInt();
+            scanner.nextLine();  // Consume newline left-over
+            System.out.println("Digite a quantidade a ser subtraída:");
+            double quantidadeSubtrair = scanner.nextDouble();
+            scanner.nextLine();  // Consume newline left-over
+            arquivo.getEstoque().subQuantidade(codigoSubtrair, quantidadeSubtrair);
+            System.out.println("Quantidade subtraída com sucesso.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
     public void gerenciarEstoque() {
         int opcao = 0;
         do {
