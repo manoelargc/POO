@@ -60,6 +60,8 @@ public class ConsoleGUI {
             double preco = scanner.nextDouble();
             System.out.println(preco);
             scanner.nextLine();  // Consume newline left-over
+            System.out.println("Digite a validade do produto:");
+            String validade = scanner.nextLine();
 
             System.out.println("Produto é por Kg ou UN?");
             System.out.println("1. Kg");
@@ -72,14 +74,14 @@ public class ConsoleGUI {
                     System.out.println("Digite a quantidade do produto:");
                     double quantidadeKg = scanner.nextDouble();
                     scanner.nextLine();  // Consume newline left-over
-                    ProdutoKG kg = new ProdutoKG(nome, descricao, preco, quantidadeKg);
+                    ProdutoKG kg = new ProdutoKG(nome, descricao, preco, validade, quantidadeKg);
                     arquivo.getEstoque().addProduto(kg);
                     break;
                 case 2:
                     System.out.println("Digite a quantidade do produto:");
                     int quantidadeUn = scanner.nextInt();
                     scanner.nextLine();  // Consume newline left-over
-                    ProdutoUN un = new ProdutoUN(nome, descricao, preco, quantidadeUn);
+                    ProdutoUN un = new ProdutoUN(nome, descricao, preco, validade, quantidadeUn);
                     arquivo.getEstoque().addProduto(un);
                     break;
                 default:
@@ -133,22 +135,6 @@ public class ConsoleGUI {
             e.printStackTrace();
         }
     }
-
-    public void atualizarPreco() {
-        try {
-            System.out.println("Digite o código do produto que deseja atualizar o preço:");
-            int codigoPreco = scanner.nextInt();
-            scanner.nextLine();  // Consume newline left-over
-            System.out.println("Digite o novo preço:");
-            double novoPreco = scanner.nextDouble();
-            scanner.nextLine();  // Consume newline left-over
-            arquivo.getEstoque().updatePreco(codigoPreco, novoPreco);
-            System.out.println("Preço atualizado com sucesso.");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public void addEstoqueProd() {
         try {
             System.out.println("Digite o código do produto que deseja add quantidade:");
@@ -179,6 +165,60 @@ public class ConsoleGUI {
         }
     }
 
+    public void editaProd() {
+        System.out.println("Digite o código do produto que deseja atualizar:");
+        int codigo = scanner.nextInt();
+        scanner.nextLine();  // Consume newline left-over
+
+        Produto produto = arquivo.getEstoque().getProduto(codigo);
+        if (produto == null) {
+            System.out.println("Produto não encontrado. Por favor, verifique o código e tente novamente.");
+            return;
+        }
+
+        System.out.println("Qual campo você gostaria de atualizar?");
+        System.out.println("1. Nome");
+        System.out.println("2. Descrição");
+        System.out.println("3. Preço");
+        System.out.println("4. Validade");
+
+        int opcao = scanner.nextInt();
+        scanner.nextLine();  // Consume newline left-over
+
+        switch (opcao) {
+            case 1:
+                System.out.println("Digite o novo nome:");
+                String novoNome = scanner.nextLine();
+                produto.setNome(novoNome);
+                break;
+            case 2:
+                System.out.println("Digite a nova descrição:");
+                String novaDescricao = scanner.nextLine();
+                produto.setDescricao(novaDescricao);
+                break;
+            case 3:
+                System.out.println("Digite o novo preço:");
+                double novoPreco = scanner.nextDouble();
+                scanner.nextLine();  // Consume newline left-over
+                produto.setPreco(novoPreco);
+                break;
+            case 4:
+                System.out.println("Digite a nova data de validade (formato dd/MM/yyyy):");
+                String novaValidade = scanner.nextLine();
+                produto.setValidade(novaValidade);
+                break;
+            default:
+                System.out.println("Opção inválida. Por favor, tente novamente.");
+        }
+
+        if (arquivo.getEstoque().updateProduto(codigo, produto)) {
+            System.out.println("Produto atualizado com sucesso.");
+        } else {
+            System.out.println("Não foi possível atualizar o produto. Por favor, tente novamente.");
+        }
+    }
+
+
     public void gerenciarEstoque() {
         int opcao = 0;
         do {
@@ -187,7 +227,7 @@ public class ConsoleGUI {
                 System.out.println("1. Adicionar produto");
                 System.out.println("2. Remover produto");
                 System.out.println("3. Mostrar produto");
-                System.out.println("4. Atualizar preço do produto");
+                System.out.println("4. Editar produto");
                 System.out.println("5. Adicionar quantidade de produto em estoque");
                 System.out.println("6. Subtrair quantidade produto em estoque");
                 System.out.println("0. Voltar ao menu principal");
@@ -208,9 +248,8 @@ public class ConsoleGUI {
                     case 3://mostrar produto
                         mostrarProduto();
                         break;
-                    case 4://atualizar preço
-                        atualizarPreco();
-                        break;
+                    case 4://editar produto(nome, descricao, preço, validade)
+                        editaProd();
                     case 5://add quantidade de produto em estoque
                         addEstoqueProd();
                         break;
@@ -233,11 +272,13 @@ public class ConsoleGUI {
 
     //=========================================================================
 
-    public void criaNF() {
-        NotaFiscal nf = new NotaFiscal(); // Crie um novo objeto NotaFiscal
+    public void criaNFe() {
+        System.out.print("Digite a data da sua NFe: ");
+        String dataNF = scanner.nextLine();  // Consume newline left-over
+        NotaFiscal nf = new NotaFiscal(dataNF); // Crie um novo objeto NotaFiscal
         // Defina as propriedades da NotaFiscal
         arquivo.getGerenciadorNF().addNotaFiscal(nf); // Adicione a NotaFiscal
-        System.out.println(nf);
+        //System.out.println(nf);
         System.out.println("Nota Fiscal criada com sucesso.");
     }
 
@@ -311,37 +352,12 @@ public class ConsoleGUI {
     }
 
     public void datevenda(){
-        System.out.println("Digite o código da NFe para o período inicial:");
-        int codigoNFeInicio = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-
-        System.out.println("Digite o código da NFe para o período final:");
-        int codigoNFeFim = scanner.nextInt();
-        scanner.nextLine();  // Consume newline left-over
-
-        // Obtém as Notas Fiscais
-        NotaFiscal nfInicio = arquivo.getGerenciadorNF().getNotaFiscal(codigoNFeInicio);
-        NotaFiscal nfFim = arquivo.getGerenciadorNF().getNotaFiscal(codigoNFeFim);
-
-        if (nfInicio != null && nfFim != null) {
-            // Obtém as datas das Notas Fiscais
-            Date dataInicio = nfInicio.getData();
-            Date dataFim = nfFim.getData();
-
-            // Cria um objeto SimpleDateFormat
-            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-
-            // Formata as datas como strings para a saída
-            String dataInicioString = formatador.format(dataInicio);
-            String dataFimString = formatador.format(dataFim);
-
-            // Agora você pode usar dataInicio e dataFim com o método getTotalVendido
-            double totalVendidoPeriodo = arquivo.getGerenciadorNF().getTotalVendido(dataInicio, dataFim);
-
-            System.out.println("O total vendido no período de " + dataInicioString + " a " + dataFimString + " é: " + totalVendidoPeriodo);
-        } else {
-            System.out.println("Uma ou ambas as Notas Fiscais não foram encontradas. Verifique os códigos das NFes e tente novamente.");
-        }
+        System.out.println("Digite a data de início (formato dd/MM/yyyy):");
+        String dataInicio = scanner.nextLine();
+        System.out.println("Digite a data de fim (formato dd/MM/yyyy):");
+        String dataFim = scanner.nextLine();
+        double totalVendidoPeriodo = arquivo.getGerenciadorNF().getTotalVendido(dataInicio, dataFim);
+        System.out.println("O total vendido no período de " + dataInicio + " a " + dataFim + " é: " + totalVendidoPeriodo);
 
     }
     public void addItemNFe() {
@@ -362,6 +378,7 @@ public class ConsoleGUI {
             NotaFiscal nfItemAdd = arquivo.getGerenciadorNF().getNotaFiscal(codigoNFe);
             if (nfItemAdd != null) {
                 nfItemAdd.adicionarItem(produto, quantidade);
+                arquivo.getEstoque().subQuantidade(codigoProduto,quantidade);
                 System.out.println("Item adicionado com sucesso.");
             } else {
                 System.out.println("NFe não encontrada.");
@@ -395,6 +412,19 @@ public class ConsoleGUI {
             }
         }
 
+    public void editaNFe(){
+        System.out.println("Digite o código da NFe que deseja editar:");
+        int codigo = scanner.nextInt();
+        scanner.nextLine();  // Consume newline left-over
+        System.out.println("Digite a nova data da NFe:");
+        String novaData = scanner.nextLine();
+        NotaFiscal nova = new NotaFiscal(novaData);
+        if (arquivo.getGerenciadorNF().updateNotaFiscal(codigo, nova)) {
+            System.out.println("Nota Fiscal atualizada com sucesso.");
+        } else {
+            System.out.println("Não foi possível atualizar a Nota Fiscal. Verifique se o código está correto.");
+        }
+    }
     public void gerenciarNotasFiscais() {
         while (true) {
             try {
@@ -405,6 +435,7 @@ public class ConsoleGUI {
                 System.out.println("4. Consultar total vendido");
                 System.out.println("5. Adicionar item na NFe");
                 System.out.println("6. Remover item da NFe");
+                System.out.println("7. Editar NFe");
                 System.out.println("0. Voltar ao menu principal");
                 System.out.print("\nDigite a opção: ");
 
@@ -413,28 +444,26 @@ public class ConsoleGUI {
 
                 switch (opcao) {
                     case 1://add nf
-                        criaNF();
+                        criaNFe();
                         break;
                     case 2://excluir nf
                         excluiNFe();
                         break;
                     case 3://mostrar nf
                         mostraNFe();
-                        //grava so a criacao, itens nao
                         break;
                     case 4:// consulta total de vendas
                         totalVendas();
-                        //caso 2
                         break;
                     case 5://add item na nf
                         addItemNFe();
-                        //falta diminuir no estoque
                         break;
                     case 6: //remover item da nf
                         removeItemNFe();
-                        //bug not working
                         break;
-
+                    case 7: //editar nf
+                        editaNFe();
+                        break;
                     case 0:
                         return;
                     default:

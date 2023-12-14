@@ -19,7 +19,7 @@ public class Produto {
     private String nome;
     private String descricao;
     private double preco;
-    private Date validade;
+    private String validade;
     private double quantidade;
 
 
@@ -37,7 +37,7 @@ public class Produto {
      * @param preco      O preço do produto.
      * @throws IllegalArgumentException Se o nome ou a descrição estiverem vazios, ou se o preço for menor ou igual a zero.
      */
-    public Produto(String nome, String descricao, double preco, double quantidade) throws IllegalArgumentException {
+    public Produto(String nome, String descricao, double preco, String validade, double quantidade) throws IllegalArgumentException {
         if (nome == null || nome.isEmpty()) {
             throw new IllegalArgumentException("Nome não pode ser vazio.");
         }
@@ -55,7 +55,10 @@ public class Produto {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
+        this.validade= validade;
     }
+
+
     /**
      * Retorna o código do produto.
      *
@@ -150,17 +153,7 @@ public class Produto {
      * @return A data de validade do produto.
      */
     public String getValidade() {
-        if (validade == null) {
-            // Cria uma data atual
-            Calendar cal = Calendar.getInstance();
-            // Adiciona um ano à data atual
-            cal.add(Calendar.YEAR, 1);
-            // Define a data de validade como um ano a partir da data atual
-            validade = cal.getTime();
-        }
-        // Formata a data de validade para uma string
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        return formato.format(validade);
+        return validade;
     }
 
     /**
@@ -169,13 +162,7 @@ public class Produto {
      * @param validade A nova data de validade do produto.
      */
     public void setValidade(String validade) {
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            Date data = formato.parse(validade);
-            this.validade = data;
-        } catch (ParseException e) {
-            System.out.println("Erro ao analisar a data. Por favor, insira a data no formato dd/MM/yyyy.");
-        }
+            this.validade = validade;
     }
 
     public double getQuantidade() {
@@ -190,7 +177,7 @@ public class Produto {
     }
 
     public String toCSV() {
-        return codigo + "," + nome + "," + descricao + "," + preco + "," + quantidade;
+        return codigo + "," + nome + "," + descricao + "," + preco + "," + validade + "," + quantidade;
     }
 
     public static Produto fromCSV(String csv) {
@@ -199,8 +186,9 @@ public class Produto {
         String nome = parts[1];
         String descricao = parts[2];
         double preco = Double.parseDouble(parts[3]);
-        double quantidade = Double.parseDouble(parts[4]);
-        return new Produto(nome, descricao, preco, quantidade);
+        String validade = parts[4];
+        double quantidade = Double.parseDouble(parts[5]);
+        return new Produto(nome, descricao, preco, validade, quantidade);
     }
 
     /**
@@ -214,6 +202,7 @@ public class Produto {
                 "Nome= " + nome +
                 ", descricao= " + descricao +
                 ", preco= " + preco +
-                ", validade=" + getValidade();
+                ", validade=" + validade +
+                ", quantidade= " + quantidade;
     }
 }

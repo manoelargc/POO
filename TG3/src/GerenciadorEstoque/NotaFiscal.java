@@ -1,6 +1,9 @@
 package GerenciadorEstoque;
 
+import java.io.StringWriter;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,12 +29,13 @@ public class NotaFiscal {
     */
     private int codigo;
 
+
     /**
      * Data de emissão da nota fiscal.
      */
-    private Date data;
+    private String data;
 
-    /**
+      /**
      * Lista de itens associados à nota fiscal.
     */
     private List<Item> itens;
@@ -41,13 +45,22 @@ public class NotaFiscal {
      */
     private double total;
 
+
     /**
      * Construtor da classe NotaFiscal.
      * Inicializa o código, a data, a lista de itens e o total da nota fiscal.
     */
+
     public NotaFiscal() {
         this.codigo = ++contador;
-        this.data = new Date();
+        this.data = data;
+        this.itens = new ArrayList<>();
+        this.total = 0.0;
+    }
+
+    public NotaFiscal(String data) {
+        this.codigo = ++contador;
+        this.data = data;
         this.itens = new ArrayList<>();
         this.total = 0.0;
     }
@@ -83,9 +96,15 @@ public class NotaFiscal {
      * Obtém a data de emissão da nota fiscal.
      * @return A data de emissão da nota fiscal.
     */
-    public Date getData() {
+    public String getData() {
         return data;
     }
+  
+  
+    public void setData(String data) {
+        this.data = data;
+    }
+
 
     /**
      * Obtém a lista de itens associados à nota fiscal.
@@ -107,7 +126,15 @@ public class NotaFiscal {
      * @return Uma string no formato CSV representando a nota fiscal.
      */
     public String toCSV() {
-        return codigo + "," + data + "," + total;
+        // Adiciona os detalhes da Nota Fiscal
+        String csv = codigo + "," + data + "," + total;
+
+        // Adiciona os itens
+        for (Item item : itens) {
+            csv += "," + item.getProduto().getCodigo() + ":" + item.getQuantidade();
+        }
+
+        return csv;
     }
 
     /**
@@ -115,13 +142,35 @@ public class NotaFiscal {
      * @param csv A string CSV contendo informações da nota fiscal.
      * @return Uma nova instância de NotaFiscal criada a partir da string CSV.
      */
-    public static NotaFiscal fromCSV(String csv) {
+     public static NotaFiscal fromCSV(String csv, Estoque estoque) {
         String[] parts = csv.split(",");
         int codigo = Integer.parseInt(parts[0]);
         String data = parts[1];
         double total = Double.parseDouble(parts[2]);
-        return new NotaFiscal();
+
+        // Cria uma nova Nota Fiscal
+        NotaFiscal nf = new NotaFiscal(data);
+        nf.codigo = codigo;
+        nf.total = total;
+
+
+        // Adiciona os itens
+        for (int i = 3; i < parts.length; i++) {
+            String[] itemParts = parts[i].split(":");
+            int codigoProduto = Integer.parseInt(itemParts[0]);
+            double quantidade = Double.parseDouble(itemParts[1]);
+
+            // Aqui você deve encontrar o Produto com o código do produto.
+            Produto produto = estoque.getProduto(codigoProduto);
+
+            // Cria um novo Item e adiciona à Nota Fiscal
+            Item item = new Item(produto, quantidade);
+            nf.itens.add(item);
+        }
+
+        return nf;
     }
+
 
     /**
      * Retorna uma representação em formato de string da nota fiscal, incluindo detalhes sobre
@@ -129,6 +178,7 @@ public class NotaFiscal {
      *
      * @return Uma string formatada representando a nota fiscal.
      */
+
     @Override
     public String toString() {
         DecimalFormat df = new DecimalFormat("#.00");

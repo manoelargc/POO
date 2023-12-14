@@ -27,12 +27,12 @@ public class ProdutoUN extends Produto {
      * @param quantidade A quantidade do produto em unidades.
      * @throws IllegalArgumentException Se a quantidade for menor ou igual a zero.
      */
-    public ProdutoUN(String nome, String descricao, double preco, int quantidade) throws IllegalArgumentException{
-        super(nome, descricao, preco, quantidade);
+    public ProdutoUN(String nome, String descricao, double preco, String validade, double quantidade) throws IllegalArgumentException {
+        super(nome, descricao, preco, validade, quantidade);
         if (quantidade <= 0) {
             throw new IllegalArgumentException("Quantidade deve ser maior que zero.");
         }
-        this.quantidade = quantidade;
+        this.quantidade = (int) quantidade;
     }
 
     /**
