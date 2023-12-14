@@ -5,13 +5,46 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * A classe NotaFiscal representa uma transação de venda contendo informações sobre produtos,
+ * quantidades, datas e totais.
+ *
+ *
+ * @author Manoela Resende
+ * @author Eduarda Sifuentes
+ * @see Item
+ * @see Produto
+ */
 public class NotaFiscal {
+    /**
+     * Contador estático para gerar códigos únicos de notas fiscais.
+     */
     private static int contador = 0;
+
+    /**
+     * Código único associado à nota fiscal.
+    */
     private int codigo;
+
+    /**
+     * Data de emissão da nota fiscal.
+     */
     private Date data;
+
+    /**
+     * Lista de itens associados à nota fiscal.
+    */
     private List<Item> itens;
+
+    /**
+     * Total da nota fiscal.
+     */
     private double total;
 
+    /**
+     * Construtor da classe NotaFiscal.
+     * Inicializa o código, a data, a lista de itens e o total da nota fiscal.
+    */
     public NotaFiscal() {
         this.codigo = ++contador;
         this.data = new Date();
@@ -19,6 +52,13 @@ public class NotaFiscal {
         this.total = 0.0;
     }
 
+    /**
+     * Adiciona um item à nota fiscal.
+     *
+     * @param produto O produto a ser adicionado à nota fiscal.
+     * @param quantidade A quantidade do produto a ser adicionada à nota fiscal (deve ser maior que zero).
+     * @throws IllegalArgumentException Se o produto fornecido for nulo ou a quantidade for menor ou igual a zero.
+     */
     public void adicionarItem(Produto produto, double quantidade) {
         if (produto == null) {
             throw new IllegalArgumentException("Produto não pode ser nulo.");
@@ -31,26 +71,50 @@ public class NotaFiscal {
         this.total += produto.getPreco() * quantidade;
     }
 
+    /**
+     * Obtém o código único associado à nota fiscal.
+     * @return O código único da nota fiscal.
+     */
     public int getCodigo() {
         return codigo;
     }
 
+    /**
+     * Obtém a data de emissão da nota fiscal.
+     * @return A data de emissão da nota fiscal.
+    */
     public Date getData() {
         return data;
     }
 
+    /**
+     * Obtém a lista de itens associados à nota fiscal.
+     * @return A lista de itens da nota fiscal.
+     */
     public List<Item> getItens() {
         return itens;
     }
-
+    /**
+     * Obtém o total da nota fiscal.
+     * @return O total da nota fiscal.
+     */
     public double getTotal() {
         return total;
     }
 
+    /**
+     * Gera uma representação CSV da nota fiscal.
+     * @return Uma string no formato CSV representando a nota fiscal.
+     */
     public String toCSV() {
         return codigo + "," + data + "," + total;
     }
 
+    /**
+     * Cria uma instância de NotaFiscal a partir de uma string CSV.
+     * @param csv A string CSV contendo informações da nota fiscal.
+     * @return Uma nova instância de NotaFiscal criada a partir da string CSV.
+     */
     public static NotaFiscal fromCSV(String csv) {
         String[] parts = csv.split(",");
         int codigo = Integer.parseInt(parts[0]);
@@ -59,7 +123,12 @@ public class NotaFiscal {
         return new NotaFiscal();
     }
 
-
+    /**
+     * Retorna uma representação em formato de string da nota fiscal, incluindo detalhes sobre
+     * produtos, quantidades e totais.
+     *
+     * @return Uma string formatada representando a nota fiscal.
+     */
     @Override
     public String toString() {
         DecimalFormat df = new DecimalFormat("#.00");
