@@ -10,6 +10,9 @@ public class Estoque implements IProdutos {
         this.produtos = new ArrayList<>();
     }
 
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
     @Override
     public boolean addProduto(Produto p) {
         if (p == null) {
