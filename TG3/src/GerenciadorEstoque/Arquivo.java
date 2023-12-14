@@ -68,7 +68,7 @@ public class Arquivo {
             try (Scanner scanner = new Scanner(file)) {
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
-                    NotaFiscal nf = NotaFiscal.fromCSV(line);
+                    NotaFiscal nf = NotaFiscal.fromCSV(line,estoque);
                     gerenciadorNF.addNotaFiscal(nf);
                 }
             } catch (FileNotFoundException e) {
