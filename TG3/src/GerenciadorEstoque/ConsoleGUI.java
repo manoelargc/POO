@@ -356,8 +356,8 @@ public class ConsoleGUI {
         String dataInicio = scanner.nextLine();
         System.out.println("Digite a data de fim (formato dd/MM/yyyy):");
         String dataFim = scanner.nextLine();
-                                /*double totalVendidoPeriodo = arquivo.getGerenciadorNF().getTotalVendido(dataInicio, dataFim);
-                                System.out.println("O total vendido no período de " + dataInicio + " a " + dataFim + " é: " + totalVendidoPeriodo);*/
+        double totalVendidoPeriodo = arquivo.getGerenciadorNF().getTotalVendido(dataInicio, dataFim);
+        System.out.println("O total vendido no período de " + dataInicio + " a " + dataFim + " é: " + totalVendidoPeriodo);
 
     }
     public void addItemNFe() {

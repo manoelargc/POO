@@ -79,18 +79,14 @@ public class GerenciadorNF implements INotasFiscais {
     }
 
     public double getTotalVendido(String data) throws ParseException {
-        double total = 0.0;
-
-        // Converte a string de data para um objeto Date
-        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-        Date dataDate = formatador.parse(data);
+        double total = 0;
 
         // Percorre todas as Notas Fiscais
         for (NotaFiscal nf : notasFiscais) {
             // Compara a data da Nota Fiscal com a data fornecida
-            if (nf.getData().equals(dataDate)) {
-                // Adiciona o total da Nota Fiscal ao total geral
-                total += nf.getTotal();
+            if (nf.getData().equals(data)) {
+                total = total + nf.getTotal();
+                //System.out.println(total);
             }
         }
 
@@ -100,11 +96,23 @@ public class GerenciadorNF implements INotasFiscais {
 
     public double getTotalVendido(String dataInicio, String dataFim) {
         double total = 0;
-        for (NotaFiscal nf : notasFiscais) {
-            if (nf.getData().compareTo(dataInicio) >= 0 && nf.getData().compareTo(dataFim) <= 0) {
-                total += nf.getTotal();
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); // Ajuste o formato de acordo com o formato de suas datas
+
+        try {
+            Date dataInicioDate = formato.parse(dataInicio);
+            Date dataFimDate = formato.parse(dataFim);
+
+            for (NotaFiscal nf : notasFiscais) {
+                Date dataNotaFiscal = formato.parse(nf.getData());
+
+                if ((dataNotaFiscal.compareTo(dataInicioDate) >= 0) && (dataNotaFiscal.compareTo(dataFimDate) <= 0)) {
+                    total += nf.getTotal();
+                }
             }
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
         return total;
     }
 
