@@ -10,6 +10,10 @@ public class GerenciadorNF implements INotasFiscais {
         this.notasFiscais = new ArrayList<>();
     }
 
+    public List<NotaFiscal> getNotasFiscais() {
+        return notasFiscais;
+    }
+
     @Override
     public boolean addNotaFiscal(NotaFiscal nf) {
         if (nf == null) {
@@ -81,7 +85,7 @@ public class GerenciadorNF implements INotasFiscais {
         return total;
     }
 
-    public double getTotalVendido(String dataInicio, String dataFim) {
+/*    public double getTotalVendido(String dataInicio, String dataFim) {
         double total = 0;
         for (NotaFiscal nf : notasFiscais) {
             if (nf.getData().compareTo(dataInicio) >= 0 && nf.getData().compareTo(dataFim) <= 0) {
@@ -89,7 +93,8 @@ public class GerenciadorNF implements INotasFiscais {
             }
         }
         return total;
-    }
+    }*/
+
 
 
     @Override
