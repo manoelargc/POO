@@ -47,6 +47,19 @@ public class NotaFiscal {
         return total;
     }
 
+    public String toCSV() {
+        return codigo + "," + data + "," + total;
+    }
+
+    public static NotaFiscal fromCSV(String csv) {
+        String[] parts = csv.split(",");
+        int codigo = Integer.parseInt(parts[0]);
+        String data = parts[1];
+        double total = Double.parseDouble(parts[2]);
+        return new NotaFiscal();
+    }
+
+
     @Override
     public String toString() {
         DecimalFormat df = new DecimalFormat("#.00");

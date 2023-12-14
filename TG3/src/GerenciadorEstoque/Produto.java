@@ -189,6 +189,20 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
+    public String toCSV() {
+        return codigo + "," + nome + "," + descricao + "," + preco + "," + quantidade;
+    }
+
+    public static Produto fromCSV(String csv) {
+        String[] parts = csv.split(",");
+        int codigo = Integer.parseInt(parts[0]);
+        String nome = parts[1];
+        String descricao = parts[2];
+        double preco = Double.parseDouble(parts[3]);
+        double quantidade = Double.parseDouble(parts[4]);
+        return new Produto(nome, descricao, preco, quantidade);
+    }
+
     /**
      * Retorna uma representação em string do produto.
      *
