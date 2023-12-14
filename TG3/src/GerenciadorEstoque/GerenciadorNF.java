@@ -63,6 +63,35 @@ public class GerenciadorNF implements INotasFiscais {
         return false;
     }
 
+    public double getTotalVendido() {
+        double total = 0;
+        for (NotaFiscal nf : notasFiscais) {
+            total += nf.getTotal();
+        }
+        return total;
+    }
+
+    public double getTotalVendido(String data) {
+        double total = 0;
+        for (NotaFiscal nf : notasFiscais) {
+            if (nf.getData().equals(data)) {
+                total += nf.getTotal();
+            }
+        }
+        return total;
+    }
+
+    public double getTotalVendido(String dataInicio, String dataFim) {
+        double total = 0;
+        for (NotaFiscal nf : notasFiscais) {
+            if (nf.getData().compareTo(dataInicio) >= 0 && nf.getData().compareTo(dataFim) <= 0) {
+                total += nf.getTotal();
+            }
+        }
+        return total;
+    }
+
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
