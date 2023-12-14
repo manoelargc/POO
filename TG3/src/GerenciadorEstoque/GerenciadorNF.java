@@ -1,6 +1,9 @@
 package GerenciadorEstoque;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class GerenciadorNF implements INotasFiscais {
@@ -75,17 +78,27 @@ public class GerenciadorNF implements INotasFiscais {
         return total;
     }
 
-    public double getTotalVendido(String data) {
-        double total = 0;
+    public double getTotalVendido(String data) throws ParseException {
+        double total = 0.0;
+
+        // Converte a string de data para um objeto Date
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        Date dataDate = formatador.parse(data);
+
+        // Percorre todas as Notas Fiscais
         for (NotaFiscal nf : notasFiscais) {
-            if (nf.getData().equals(data)) {
+            // Compara a data da Nota Fiscal com a data fornecida
+            if (nf.getData().equals(dataDate)) {
+                // Adiciona o total da Nota Fiscal ao total geral
                 total += nf.getTotal();
             }
         }
+
         return total;
     }
 
-/*    public double getTotalVendido(String dataInicio, String dataFim) {
+
+    public double getTotalVendido(Date dataInicio, Date dataFim) {
         double total = 0;
         for (NotaFiscal nf : notasFiscais) {
             if (nf.getData().compareTo(dataInicio) >= 0 && nf.getData().compareTo(dataFim) <= 0) {
@@ -93,7 +106,7 @@ public class GerenciadorNF implements INotasFiscais {
             }
         }
         return total;
-    }*/
+    }
 
 
 
