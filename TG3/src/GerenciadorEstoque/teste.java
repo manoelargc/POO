@@ -8,16 +8,16 @@ public class teste {
 /*        Produto p = new Produto("copo", "stanley", 100);
         p.setValidade("10-04-2024"); //tratamento de excecoes
         System.out.println(p);*/
-
-  /*     ProdutoUN un = new ProdutoUN("camisa", "teste", 60.00, 1);
-        System.out.println(un);*/
+/*
+        ProdutoUN un = new ProdutoUN("camisa", "teste", 60.00, 1);
+        System.out.println(un);
 
         ProdutoKG kg = new ProdutoKG("cafe", "forte", 15.50, 1);
         //System.out.println(kg);
         ProdutoKG kg2 = new ProdutoKG("queijo", "mussarela", 32.0, 1);
         //System.out.println(kg);
 
-/*        // Cria um estoque
+       // Cria um estoque
         Estoque estoque = new Estoque();
 
         // Adiciona os produtos ao estoque
@@ -36,7 +36,7 @@ public class teste {
         // Remove um produto
         estoque.removeProduto(kg.getCodigo());
         System.out.println("Produto KG após remoção: " + estoque.getProduto(kg.getCodigo()));
-   */
+   //*
         // Criação de alguns produtos
         Produto p1 = new ProdutoKG("Carne Moida", "Carne Moida 1", 20.0, 1);
         Produto p2 = new ProdutoUN("Leite", "Caixa com 1L", 3.50, 1);
@@ -49,7 +49,7 @@ public class teste {
         nf.adicionarItem(p2, 3); // 3 caixas
 
         NotaFiscal nf2 = new NotaFiscal();
-        nf2.adicionarItem(kg,1.2);
+        //nf2.adicionarItem(kg,1.2);
         nf2.adicionarItem(kg2,0.3);
 
         GerenciadorNF gerenciadorNF = new GerenciadorNF();
@@ -63,7 +63,7 @@ public class teste {
 
 
 // Imprimindo a nota fiscal
-        System.out.println(nf);
+        System.out.println(nf);*/
 
         ConsoleGUI console= new ConsoleGUI();
         console.iniciar();
