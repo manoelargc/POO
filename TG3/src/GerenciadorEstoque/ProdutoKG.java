@@ -27,8 +27,8 @@ public class ProdutoKG extends Produto {
      * @param quantidade A quantidade do produto em quilogramas.
      * @throws IllegalArgumentException Se a quantidade for menor ou igual a zero.
      */
-    public ProdutoKG(String nome, String descricao, double preco, double quantidade) throws IllegalArgumentException {
-        super(nome, descricao, preco, quantidade);
+    public ProdutoKG(String nome, String descricao, double preco, String validade, double quantidade) throws IllegalArgumentException {
+        super(nome, descricao, preco, validade, quantidade);
         if (quantidade <= 0) {
             throw new IllegalArgumentException("Quantidade deve ser maior que zero.");
         }
